@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Nepal Tax Calculator & Savings Planner 2081/2082</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .form-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .form-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .info-icon {
+            position: absolute;
+            right: 15px;
+            top: 40px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .info-icon:hover {
+            color: #3b82f6;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 250px;
+            z-index: 100;
+            display: none;
+            right: 0;
+            top: 60px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .results-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+
+        .result-card h3 {
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-card .amount {
+            font-size: 2em;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tax-breakdown {
+            margin-top: 20px;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .breakdown-item.total {
+            background: #eff6ff;
+            border-left-color: #1d4ed8;
+            font-weight: bold;
+        }
+
+        .recommendation {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .recommendation h3 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .recommendation ul {
+            list-style: none;
+        }
+
+        .recommendation li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .recommendation li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #fbbf24;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .charts-section {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            background: #e5e7eb;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .savings-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .savings-option {
+            background: #f9fafb;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .savings-option:hover {
+            transform: translateY(-5px);
+            border-color: #3b82f6;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1);
+        }
+
+        .savings-option i {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #3b82f6;
+        }
+
+        .savings-option h4 {
+            margin-bottom: 5px;
+        }
+
+        .savings-option p {
+            font-size: 0.9em;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+
+        .animation-fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tax-saving-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tax-saving-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #3b82f6;
+        }
+
+        .tax-saving-card h3 {
+            margin-bottom: 15px;
+            color: #1d4ed8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-calculator"></i> Nepal Tax Calculator</h1>
+            <p>Advanced Tax Planning & Savings Calculator for FY 2081/2082</p>
+        </div>
+
+        <div class="main-content">
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>Income Information</h2>
+                </div>
+                <div class="form-group">
+                    <label for="basicSalary">Basic Monthly Salary (NPR)</label>
+                    <input type="number" id="basicSalary" value="0" placeholder="Enter basic salary">
+                    <span class="info-icon" data-tooltip="Your base salary before any deductions or allowances">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Your base salary before any deductions or allowances</div>
+                    </span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="festivalBonus">Festival Bonus (Months)</label>
+                    <select id="festivalBonus">
+                        <option value="1">1 Month</option>
+                        <option value="2">2 Months</option>
+                        <option value="3">3 Months</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="otherIncome">Other Annual Income (NPR)</label>
+                    <input type="number" id="otherIncome" value="0" placeholder="Rental, business, etc.">
+                    <span class="info-icon" data-tooltip="Income from sources other than your main employment">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Income from sources other than your main employment</div>
+                    </span>
+                </div>
+
+                <div class="section-title">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h2>Monthly Allowances</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="oddShiftAllowances">Odd Shift Allowance (% of basic salary)</label>
+                    <input type="number" id="oddShiftAllowances" value="0" min="0" max="100" step="0.1" placeholder="e.g., 20 for 20%">
+                </div>
+
+                <div class="form-group">
+                    <label for="overtimeAllowance">Overtime Allowance (% of basic salary)</label>
+                    <input type="number" id="overtimeAllowance" value="0" min="0" max="100" step="0.1" placeholder="e.g., 15 for 15%">
+                </div>
+
+                <div class="form-group">
+                    <label for="transportAllowance">Transport Allowance (% of basic salary)</label>
+                    <input type="number" id="transportAllowance" value="0" min="0" max="100" step="0.1" placeholder="e.g., 10 for 10%">
+                </div>
+
+                <div class="form-group">
+                    <label for="medicalAllowance">Medical Allowance (% of basic salary)</label>
+                    <input type="number" id="medicalAllowance" value="0" min="0" max="100" step="0.1" placeholder="e.g., 5 for 5%">
+                </div>
+
+                <div class="form-group">
+                    <label for="foodAllowance">Food/Meal Allowance (% of basic salary)</label>
+                    <input type="number" id="foodAllowance" value="0" min="0" max="100" step="0.1" placeholder="e.g., 8 for 8%">
+                </div>
+
+                <div class="form-group">
+                    <label for="housingAllowance">Housing Allowance (% of basic salary)</label>
+                    <input type="number" id="housingAllowance" value="0" min="0" max="100" step="0.1" placeholder="e.g., 25 for 25%">
+                </div>
+
+                <div class="form-group">
+                    <label for="otherAllowances">Other Allowances (% of basic salary)</label>
+                    <input type="number" id="otherAllowances" value="0" min="0" max="100" step="0.1" placeholder="Position, risk, etc.">
+                </div>
+
+                <div class="form-group">
+                    <label for="maritalStatus">Marital Status</label>
+                    <select id="maritalStatus">
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                    </select>
+                </div>
+
+                <div class="section-title">
+                    <i class="fas fa-piggy-bank"></i>
+                    <h2>Investment & Deductions</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="citInvestment">CIT Investment (NPR)</label>
+                    <input type="number" id="citInvestment" value="0" placeholder="Citizens Investment Trust">
+                    <span class="info-icon" data-tooltip="Max deduction: NPR 500,000 or 1/3 of taxable income">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Max deduction: NPR 500,000 or 1/3 of taxable income</div>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="ssfContribution">SSF Contribution (%)</label>
+                    <input type="number" id="ssfContribution" value="0" min="0" max="20" step="0.1">
+                    <span class="info-icon" data-tooltip="Social Security Fund contribution (max 20% of basic salary)">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Social Security Fund contribution (max 20% of basic salary)</div>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="insurancePremium">Life Insurance Premium (NPR)</label>
+                    <input type="number" id="insurancePremium" value="0" placeholder="Annual premium">
+                    <span class="info-icon" data-tooltip="Max deduction: NPR 40,000 per year">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Max deduction: NPR 40,000 per year</div>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="pfContribution">Provident Fund Contribution (%)</label>
+                    <input type="number" id="pfContribution" value="0" min="0" max="15" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label for="healthInsurance">Health Insurance (NPR)</label>
+                    <input type="number" id="healthInsurance" value="0" placeholder="Annual premium">
+                    <span class="info-icon" data-tooltip="Max deduction: NPR 20,000 per year">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Max deduction: NPR 20,000 per year</div>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="educationExpense">Education Expense (NPR)</label>
+                    <input type="number" id="educationExpense" value="0" placeholder="For self/children">
+                    <span class="info-icon" data-tooltip="Max deduction: NPR 100,000 per year">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Max deduction: NPR 100,000 per year</div>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="donation">Donations (NPR)</label>
+                    <input type="number" id="donation" value="0" placeholder="To approved charities">
+                    <span class="info-icon" data-tooltip="Max deduction: 5% of taxable income">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Max deduction: 5% of taxable income</div>
+                    </span>
+                </div>
+
+                <button class="btn" onclick="calculateTax()">
+                    <i class="fas fa-calculator"></i> Calculate Tax & Savings
+                </button>
+            </div>
+
+            <div class="results-section">
+                <div class="section-title">
+                    <i class="fas fa-chart-pie"></i>
+                    <h2>Tax Calculation Results</h2>
+                </div>
+                
+                <div class="result-card" id="totalIncomeCard">
+                    <h3>Total Annual Income</h3>
+                    <div class="amount" id="totalIncome">NPR 0</div>
+                </div>
+
+                <div class="result-card" id="taxableIncomeCard">
+                    <h3>Taxable Income</h3>
+                    <div class="amount" id="taxableIncome">NPR 0</div>
+                </div>
+
+                <div class="result-card" id="taxLiabilityCard">
+                    <h3>Income Tax Liability</h3>
+                    <div class="amount" id="taxLiability">NPR 0</div>
+                </div>
+
+                <div class="tax-breakdown">
+                    <h3><i class="fas fa-file-invoice-dollar"></i> Income Breakdown</h3>
+                    <div class="breakdown-item">
+                        <span>Basic Salary (Annual)</span>
+                        <span id="basicSalaryAmount">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Festival Bonus</span>
+                        <span id="bonusAmount">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Total Allowances</span>
+                        <span id="totalAllowances">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Other Income</span>
+                        <span id="otherIncomeAmount">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item total">
+                        <span><strong>Gross Annual Income</strong></span>
+                        <span id="grossIncome"><strong>NPR 0</strong></span>
+                    </div>
+                </div>
+
+                <div class="tax-breakdown">
+                    <h3><i class="fas fa-receipt"></i> Deduction Breakdown</h3>
+                    <div class="breakdown-item">
+                        <span>CIT Investment</span>
+                        <span id="citDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>SSF Contribution</span>
+                        <span id="ssfDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Insurance Premium</span>
+                        <span id="insuranceDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Provident Fund</span>
+                        <span id="pfDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Health Insurance</span>
+                        <span id="healthDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Education Expense</span>
+                        <span id="educationDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Donations</span>
+                        <span id="donationDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item total">
+                        <span><strong>Total Deductions</strong></span>
+                        <span id="totalDeductions"><strong>NPR 0</strong></span>
+                    </div>
+                </div>
+
+                <div class="recommendation" id="recommendations">
+                    <h3><i class="fas fa-lightbulb"></i> Tax Optimization Recommendations</h3>
+                    <ul id="recommendationList">
+                        <li>Increase CIT investment to maximize deductions</li>
+                        <li>Consider additional life insurance coverage</li>
+                        <li>Maximize SSF contributions for better returns</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="section-title">
+                        <i class="fas fa-chart-bar"></i>
+                        <h2>Tax Efficiency Analysis</h2>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Tax Efficiency</span>
+                            <span id="efficiencyPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="efficiencyProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Savings Rate</span>
+                            <span id="savingsPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="savingsProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div style="text-align: center; padding: 20px; background: #f8fafc; border-radius: 10px;">
+                            <h4><i class="fas fa-wallet"></i> Monthly Take-Home</h4>
+                            <div style="font-size: 1.5em; font-weight: bold; color: #059669;" id="monthlyTakeHome">NPR 0</div>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: #f8fafc; border-radius: 10px;">
+                            <h4><i class="fas fa-coins"></i> Monthly Savings</h4>
+                            <div style="font-size: 1.5em; font-weight: bold; color: #3b82f6;" id="monthlySavings">NPR 0</div>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: #f8fafc; border-radius: 10px;">
+                            <h4><i class="fas fa-hand-holding-usd"></i> Tax Saved</h4>
+                            <div style="font-size: 1.5em; font-weight: bold; color: #dc2626;" id="taxSaved">NPR 0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="section-title">
+                        <i class="fas fa-piggy-bank"></i>
+                        <h2>Tax-Saving Investment Options</h2>
+                    </div>
+                    
+                    <div class="savings-options">
+                        <div class="savings-option">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <h4>CIT Investment</h4>
+                            <p>Up to NPR 500,000 or 1/3 of income</p>
+                        </div>
+                        <div class="savings-option">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Life Insurance</h4>
+                            <p>Up to NPR 40,000 annually</p>
+                        </div>
+                        <div class="savings-option">
+                            <i class="fas fa-user-md"></i>
+                            <h4>Health Insurance</h4>
+                            <p>Up to NPR 20,000 annually</p>
+                        </div>
+                        <div class="savings-option">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h4>Education Fund</h4>
+                            <p>Up to NPR 100,000 annually</p>
+                        </div>
+                        <div class="savings-option">
+                            <i class="fas fa-hands-helping"></i>
+                            <h4>Donations</h4>
+                            <p>Up to 5% of taxable income</p>
+                        </div>
+                        <div class="savings-option">
+                            <i class="fas fa-retweet"></i>
+                            <h4>Retirement Fund</h4>
+                            <p>Up to 10% of basic salary</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="section-title">
+                        <i class="fas fa-info-circle"></i>
+                        <h2>Tax Planning Guide</h2>
+                    </div>
+                    
+                    <div class="tax-saving-grid">
+                        <div class="tax-saving-card">
+                            <h3><i class="fas fa-chart-line"></i> CIT Strategies</h3>
+                            <p>Citizens Investment Trust offers tax-efficient savings with up to NPR 500,000 deduction. Consider long-term CIT bonds for stable returns.</p>
+                        </div>
+                        <div class="tax-saving-card">
+                            <h3><i class="fas fa-heartbeat"></i> Health Insurance</h3>
+                            <p>NPR 20,000 premium deduction available. Consider family coverage for comprehensive protection and tax benefits.</p>
+                        </div>
+                        <div class="tax-saving-card">
+                            <h3><i class="fas fa-graduation-cap"></i> Education Savings</h3>
+                            <p>Up to NPR 100,000 deduction for education expenses. Includes tuition fees for children's education.</p>
+                        </div>
+                        <div class="tax-saving-card">
+                            <h3><i class="fas fa-hand-holding-usd"></i> Retirement Planning</h3>
+                            <p>Retirement funds offer up to 10% deduction on basic salary. Consider starting early for compound growth.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize tooltips
+        document.querySelectorAll('.info-icon').forEach(icon => {
+            icon.addEventListener('mouseover', function() {
+                this.querySelector('.tooltip').style.display = 'block';
+            });
+            
+            icon.addEventListener('mouseout', function() {
+                this.querySelector('.tooltip').style.display = 'none';
+            });
+        });
+
+        function calculateTax() {
+            // Get input values
+            const basicSalary = parseFloat(document.getElementById('basicSalary').value) || 0;
+            const festivalBonus = parseFloat(document.getElementById('festivalBonus').value) || 1;
+            const otherIncome = parseFloat(document.getElementById('otherIncome').value) || 0;
+            const maritalStatus = document.getElementById('maritalStatus').value;
+            
+            // Get allowance percentages
+            const oddShiftPercent = parseFloat(document.getElementById('oddShiftAllowances').value) || 0;
+            const overtimePercent = parseFloat(document.getElementById('overtimeAllowance').value) || 0;
+            const transportPercent = parseFloat(document.getElementById('transportAllowance').value) || 0;
+            const medicalPercent = parseFloat(document.getElementById('medicalAllowance').value) || 0;
+            const foodPercent = parseFloat(document.getElementById('foodAllowance').value) || 0;
+            const housingPercent = parseFloat(document.getElementById('housingAllowance').value) || 0;
+            const otherAllowancesPercent = parseFloat(document.getElementById('otherAllowances').value) || 0;
+            
+            // Investment and deduction inputs
+            const citInvestment = parseFloat(document.getElementById('citInvestment').value) || 0;
+            const ssfPercent = parseFloat(document.getElementById('ssfContribution').value) || 0;
+            const insurancePremium = parseFloat(document.getElementById('insurancePremium').value) || 0;
+            const pfPercent = parseFloat(document.getElementById('pfContribution').value) || 0;
+            const healthInsurance = parseFloat(document.getElementById('healthInsurance').value) || 0;
+            const educationExpense = parseFloat(document.getElementById('educationExpense').value) || 0;
+            const donation = parseFloat(document.getElementById('donation').value) || 0;
+
+            // Calculate allowances
+            const oddShiftAmount = (basicSalary * oddShiftPercent) / 100;
+            const overtimeAmount = (basicSalary * overtimePercent) / 100;
+            const transportAmount = (basicSalary * transportPercent) / 100;
+            const medicalAmount = (basicSalary * medicalPercent) / 100;
+            const foodAmount = (basicSalary * foodPercent) / 100;
+            const housingAmount = (basicSalary * housingPercent) / 100;
+            const otherAllowancesAmount = (basicSalary * otherAllowancesPercent) / 100;
+            
+            const totalMonthlyAllowances = oddShiftAmount + overtimeAmount + transportAmount + 
+                                         medicalAmount + foodAmount + housingAmount + otherAllowancesAmount;
+            const totalAnnualAllowances = totalMonthlyAllowances * 12;
+
+            // Calculate total income
+            const annualBasicSalary = basicSalary * 12;
+            const bonusAmount = basicSalary * festivalBonus;
+            const totalIncome = annualBasicSalary + bonusAmount + totalAnnualAllowances + otherIncome;
+
+            // Calculate deductions with limits
+            const maxCitDeduction = Math.min(citInvestment, totalIncome / 3, 500000);
+            const ssfDeduction = (annualBasicSalary * ssfPercent) / 100;
+            const insuranceDeduction = Math.min(insurancePremium, 40000);
+            const healthDeduction = Math.min(healthInsurance, 20000);
+            const educationDeduction = Math.min(educationExpense, 100000);
+            const pfDeduction = (annualBasicSalary * pfPercent) / 100;
+            
+            // Donation deduction (max 5% of taxable income)
+            const deductionsBeforeDonation = maxCitDeduction + ssfDeduction + insuranceDeduction + 
+                                            pfDeduction + healthDeduction + educationDeduction;
+            const taxableBeforeDonation = Math.max(0, totalIncome - deductionsBeforeDonation);
+            const donationDeduction = Math.min(donation, taxableBeforeDonation * 0.05);
+            
+            const totalDeductions = deductionsBeforeDonation + donationDeduction;
+
+            // Calculate taxable income
+            const taxableIncome = Math.max(0, totalIncome - totalDeductions);
+
+            // Tax calculation based on Nepal tax slabs 2081/2082
+            let taxLiability = 0;
+            const taxFreeLimit = maritalStatus === 'married' ? 600000 : 500000;
+
+            if (taxableIncome > taxFreeLimit) {
+                const taxableAmount = taxableIncome - taxFreeLimit;
+                
+                if (taxableAmount <= 200000) {
+                    taxLiability = taxableAmount * 0.1;
+                } else if (taxableAmount <= 500000) {
+                    taxLiability = 200000 * 0.1 + (taxableAmount - 200000) * 0.2;
+                } else if (taxableAmount <= 2000000) {
+                    taxLiability = 200000 * 0.1 + 300000 * 0.2 + (taxableAmount - 500000) * 0.3;
+                } else {
+                    taxLiability = 200000 * 0.1 + 300000 * 0.2 + 1500000 * 0.3 + (taxableAmount - 2000000) * 0.36;
+                }
+            }
+
+            // Calculate potential tax without deductions
+            const taxableIncomeWithoutDeductions = totalIncome;
+            let potentialTax = 0;
+            if (taxableIncomeWithoutDeductions > taxFreeLimit) {
+                const taxableAmount = taxableIncomeWithoutDeductions - taxFreeLimit;
+                if (taxableAmount <= 200000) {
+                    potentialTax = taxableAmount * 0.1;
+                } else if (taxableAmount <= 500000) {
+                    potentialTax = 200000 * 0.1 + (taxableAmount - 200000) * 0.2;
+                } else if (taxableAmount <= 2000000) {
+                    potentialTax = 200000 * 0.1 + 300000 * 0.2 + (taxableAmount - 500000) * 0.3;
+                } else {
+                    potentialTax = 200000 * 0.1 + 300000 * 0.2 + 1500000 * 0.3 + (taxableAmount - 2000000) * 0.36;
+                }
+            }
+
+            const taxSaved = potentialTax - taxLiability;
+
+            // Update Income Breakdown
+            document.getElementById('basicSalaryAmount').textContent = `NPR ${annualBasicSalary.toLocaleString()}`;
+            document.getElementById('bonusAmount').textContent = `NPR ${bonusAmount.toLocaleString()}`;
+            document.getElementById('totalAllowances').textContent = `NPR ${totalAnnualAllowances.toLocaleString()}`;
+            document.getElementById('otherIncomeAmount').textContent = `NPR ${otherIncome.toLocaleString()}`;
+            document.getElementById('grossIncome').textContent = `NPR ${totalIncome.toLocaleString()}`;
+
+            // Update UI
+            document.getElementById('totalIncome').textContent = `NPR ${totalIncome.toLocaleString()}`;
+            document.getElementById('taxableIncome').textContent = `NPR ${taxableIncome.toLocaleString()}`;
+            document.getElementById('taxLiability').textContent = `NPR ${taxLiability.toLocaleString()}`;
+            
+            document.getElementById('citDeduction').textContent = `NPR ${maxCitDeduction.toLocaleString()}`;
+            document.getElementById('ssfDeduction').textContent = `NPR ${ssfDeduction.toLocaleString()}`;
+            document.getElementById('insuranceDeduction').textContent = `NPR ${insuranceDeduction.toLocaleString()}`;
+            document.getElementById('pfDeduction').textContent = `NPR ${pfDeduction.toLocaleString()}`;
+            document.getElementById('healthDeduction').textContent = `NPR ${healthDeduction.toLocaleString()}`;
+            document.getElementById('educationDeduction').textContent = `NPR ${educationDeduction.toLocaleString()}`;
+            document.getElementById('donationDeduction').textContent = `NPR ${donationDeduction.toLocaleString()}`;
+            document.getElementById('totalDeductions').textContent = `NPR ${totalDeductions.toLocaleString()}`;
+
+            // Calculate metrics
+            const monthlyTakeHome = (totalIncome - taxLiability - (ssfDeduction + pfDeduction)) / 12;
+            const monthlySavings = (maxCitDeduction + insuranceDeduction + healthDeduction + educationDeduction) / 12;
+            const taxEfficiency = totalIncome > 0 ? (taxSaved / totalIncome) * 100 : 0;
+            const savingsRate = totalIncome > 0 ? (totalDeductions / totalIncome) * 100 : 0;
+
+            document.getElementById('monthlyTakeHome').textContent = `NPR ${monthlyTakeHome.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
+            document.getElementById('monthlySavings').textContent = `NPR ${monthlySavings.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
+            document.getElementById('taxSaved').textContent = `NPR ${taxSaved.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
+            document.getElementById('efficiencyPercent').textContent = `${taxEfficiency.toFixed(1)}%`;
+            document.getElementById('savingsPercent').textContent = `${savingsRate.toFixed(1)}%`;
+
+            // Update progress bars
+            document.getElementById('efficiencyProgress').style.width = `${Math.min(taxEfficiency, 100)}%`;
+            document.getElementById('savingsProgress').style.width = `${Math.min(savingsRate, 100)}%`;
+
+            // Generate recommendations
+            generateRecommendations(totalIncome, maxCitDeduction, ssfDeduction, insuranceDeduction, taxLiability, totalAnnualAllowances, healthDeduction, educationDeduction, donationDeduction);
+
+            // Add animation
+            document.querySelectorAll('.result-card').forEach(card => {
+                card.classList.add('animation-fade-in');
+            });
+        }
+
+        function generateRecommendations(totalIncome, citDeduction, ssfDeduction, insuranceDeduction, taxLiability, totalAllowances, healthDeduction, educationDeduction, donationDeduction) {
+            const recommendations = [];
+            
+            const maxCitAllowed = Math.min(totalIncome / 3, 500000);
+            if (citDeduction < maxCitAllowed) {
+                recommendations.push(`Increase CIT investment by NPR ${(maxCitAllowed - citDeduction).toLocaleString()} to maximize deductions`);
+            }
+            
+            if (insuranceDeduction < 40000) {
+                recommendations.push(`Increase life insurance premium by NPR ${(40000 - insuranceDeduction).toLocaleString()} for full deduction`);
+            }
+            
+            if (healthDeduction < 20000) {
+                recommendations.push(`Add health insurance coverage - you can save up to NPR ${(20000 - healthDeduction).toLocaleString()} more`);
+            }
+
+            if (educationDeduction < 100000) {
+                recommendations.push(`Consider education fund investment - you can save up to NPR ${(100000 - educationDeduction).toLocaleString()} more`);
+            }
+
+            if (donationDeduction < 50000) {
+                recommendations.push(`Charitable donations can save you tax - you can donate up to 5% of taxable income`);
+            }
+            
+            if (totalAllowances > 0) {
+                recommendations.push(`Great! Your allowances of NPR ${totalAllowances.toLocaleString()} are included in taxable income`);
+            }
+
+            if (totalAllowances === 0) {
+                recommendations.push('Consider negotiating allowances with your employer - they improve your total compensation');
+            }
+            
+            if (taxLiability === 0) {
+                recommendations.push('Excellent! You have optimized your tax to zero. Consider investment diversification.');
+            }
+            
+            if (recommendations.length === 0) {
+                recommendations.push('Your tax planning is well optimized!');
+            }
+
+            const list = document.getElementById('recommendationList');
+            list.innerHTML = '';
+            recommendations.forEach(rec => {
+                const li = document.createElement('li');
+                li.textContent = rec;
+                list.appendChild(li);
+            });
+        }
+
+        // Initialize with default calculation
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateTax();
+            
+            // Add tooltips for info icons
+            document.querySelectorAll('.info-icon').forEach(icon => {
+                icon.addEventListener('mouseover', function() {
+                    this.querySelector('.tooltip').style.display = 'block';
+                });
+                
+                icon.addEventListener('mouseout', function() {
+                    this.querySelector('.tooltip').style.display = 'none';
+                });
+            });
+        });
+
+        // Auto-calculate on input change
+        document.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('input', calculateTax);
+        });
+    </script>
+</body>
+</html>
