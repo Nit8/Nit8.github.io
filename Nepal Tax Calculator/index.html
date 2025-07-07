@@ -906,52 +906,104 @@
         function generateRecommendations(totalIncome, citDeduction, ssfDeduction, insuranceDeduction, taxLiability, totalAllowances, healthDeduction, educationDeduction, donationDeduction) {
             const recommendations = [];
             
-            const maxCitAllowed = Math.min(totalIncome / 3, 500000);
-            if (citDeduction < maxCitAllowed) {
-                recommendations.push(`Increase CIT investment by NPR ${(maxCitAllowed - citDeduction).toLocaleString()} to maximize deductions`);
-            }
-            
-            if (insuranceDeduction < 40000) {
-                recommendations.push(`Increase life insurance premium by NPR ${(40000 - insuranceDeduction).toLocaleString()} for full deduction`);
-            }
-            
-            if (healthDeduction < 20000) {
-                recommendations.push(`Add health insurance coverage - you can save up to NPR ${(20000 - healthDeduction).toLocaleString()} more`);
-            }
+            // Helper function to calculate tax
+            const computeTax = (taxableIncome) => {
+                if (taxableIncome <= 500000) return 0;
+                let tax = 0;
+                const slabs = [
+                    { limit: 700000, rate: 0.1 },
+                    { limit: 1000000, rate: 0.2 },
+                    { limit: 2000000, rate: 0.3 },
+                    { limit: Infinity, rate: 0.36 }
+                ];
+                
+                let remaining = taxableIncome - 500000;
+                if (remaining <= 0) return 0;
+                
+                for (const slab of slabs) {
+                    if (remaining <= 0) break;
+                    const taxableInSlab = Math.min(remaining, slab.limit - 500000);
+                    if (taxableInSlab > 0) {
+                        tax += taxableInSlab * slab.rate;
+                        remaining -= taxableInSlab;
+                    }
+                    // Update base for next slab
+                    slab.limit = slab.limit - 500000;
+                }
+                return tax;
+            };
 
-            if (educationDeduction < 100000) {
-                recommendations.push(`Consider education fund investment - you can save up to NPR ${(100000 - educationDeduction).toLocaleString()} more`);
-            }
+            // Calculate current taxable income
+            const totalDeductions = citDeduction + ssfDeduction + insuranceDeduction + 
+                                    healthDeduction + educationDeduction + donationDeduction;
+            let currentTaxableIncome = totalIncome - totalDeductions + totalAllowances;
+            
+            // Only show tax-saving recommendations if user has tax liability
+            if (taxLiability > 0) {
+                // CIT recommendation (1/3 of income or 500k max)
+                const maxCitAllowed = Math.min(totalIncome / 3, 500000);
+                if (citDeduction < maxCitAllowed) {
+                    const additional = Math.min(maxCitAllowed - citDeduction, currentTaxableIncome - 500000);
+                    if (additional > 10000) { // Only suggest meaningful amounts
+                        recommendations.push(`Consider CIT investment: NPR ${Math.round(additional).toLocaleString()} more can save NPR ${Math.round(computeTax(currentTaxableIncome) - computeTax(currentTaxableIncome - additional)).toLocaleString()} tax`);
+                    }
+                }
 
-            if (donationDeduction < 50000) {
-                recommendations.push(`Charitable donations can save you tax - you can donate up to 5% of taxable income`);
+                // Life Insurance (max 40k)
+                if (insuranceDeduction < 40000) {
+                    const additional = Math.min(40000 - insuranceDeduction, currentTaxableIncome - 500000);
+                    recommendations.push(`Top-up life insurance: NPR ${additional.toLocaleString()} more (Max: 40k/year)`);
+                }
+
+                // Health Insurance (max 20k)
+                if (healthDeduction < 20000) {
+                    const additional = Math.min(20000 - healthDeduction, currentTaxableIncome - 500000);
+                    recommendations.push(`Increase health insurance: NPR ${additional.toLocaleString()} more (Max: 20k/year)`);
+                }
+
+                // Education Fund (max 100k)
+                if (educationDeduction < 100000 && currentTaxableIncome > 500000) {
+                    const additional = Math.min(100000 - educationDeduction, currentTaxableIncome - 500000);
+                    recommendations.push(`Education fund investment: NPR ${additional.toLocaleString()} more (Max: 100k/year)`);
+                }
+
+                // Donations (5% of income)
+                const maxDonation = totalIncome * 0.05;
+                if (donationDeduction < maxDonation && currentTaxableIncome > 500000) {
+                    recommendations.push(`Charitable donations: Up to NPR ${Math.round(maxDonation).toLocaleString()} (5% of income) can save taxes`);
+                }
             }
             
-            if (totalAllowances > 0) {
-                recommendations.push(`Great! Your allowances of NPR ${totalAllowances.toLocaleString()} are included in taxable income`);
+            // Non-deduction based recommendations
+            if (taxLiability === 0) {
+                recommendations.push("✅ Zero tax liability! Focus on wealth building instead of tax savings");
+            }
+            
+            if (currentTaxableIncome <= 500000) {
+                recommendations.push("ℹ️ You're below taxable threshold - prioritize liquidity over tax savings");
             }
 
             if (totalAllowances === 0) {
-                recommendations.push('Consider negotiating allowances with your employer - they improve your total compensation');
+                recommendations.push("💡 Negotiate tax-free allowances with employer (up to 1/3 basic salary)");
+            } else {
+                recommendations.push(`✓ Allowances: NPR ${totalAllowances.toLocaleString()} included in taxable income`);
             }
             
-            if (taxLiability === 0) {
-                recommendations.push('Excellent! You have optimized your tax to zero. Consider investment diversification.');
-            }
-            
+            // Default message if no recommendations
             if (recommendations.length === 0) {
-                recommendations.push('Your tax planning is well optimized!');
+                recommendations.push("🎉 Excellent tax optimization! Consider consulting a financial advisor");
             }
 
+            // Render to DOM
             const list = document.getElementById('recommendationList');
             list.innerHTML = '';
             recommendations.forEach(rec => {
                 const li = document.createElement('li');
+                li.className = rec.includes("✓") ? 'positive' : rec.includes("ℹ️") ? 'info' : 'advice';
                 li.textContent = rec;
                 list.appendChild(li);
             });
         }
-
         // Initialize with default calculation
         document.addEventListener('DOMContentLoaded', function() {
             calculateTax();
