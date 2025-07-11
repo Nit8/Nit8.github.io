@@ -19,7 +19,8 @@ function calculateTax() {
     // Get allowance percentages
     const oddShiftPercent = parseFloat(document.getElementById('oddShiftAllowances').value) || 0;
     const overtimePercent = parseFloat(document.getElementById('overtimeAllowance').value) || 0;
-    const transportPercent = parseFloat(document.getElementById('transportAllowance').value) || 0;
+    // const transportPercent = parseFloat(document.getElementById('transportAllowance').value) || 0;
+    const transportAmount = parseFloat(document.getElementById('transportAllowance').value) || 0;
     const medicalPercent = parseFloat(document.getElementById('medicalAllowance').value) || 0;
     const foodPercent = parseFloat(document.getElementById('foodAllowance').value) || 0;
     const housingPercent = parseFloat(document.getElementById('housingAllowance').value) || 0;
@@ -37,7 +38,7 @@ function calculateTax() {
     // Calculate allowances
     const oddShiftAmount = (basicSalary * oddShiftPercent) / 100;
     const overtimeAmount = (basicSalary * overtimePercent) / 100;
-    const transportAmount = (basicSalary * transportPercent) / 100;
+    // const transportAmount = (basicSalary * transportPercent) / 100;
     const medicalAmount = (basicSalary * medicalPercent) / 100;
     const foodAmount = (basicSalary * foodPercent) / 100;
     const housingAmount = (basicSalary * housingPercent) / 100;
