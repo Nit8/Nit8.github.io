@@ -1,4 +1,4 @@
-// Nepal Tax Calculator Script
+// Nepal Tax Calculator Script - Updated for FY 2080/81 Rules
 // Initialize tooltips
 document.querySelectorAll('.info-icon').forEach(icon => {
     icon.addEventListener('mouseover', function() {
@@ -9,6 +9,7 @@ document.querySelectorAll('.info-icon').forEach(icon => {
         this.querySelector('.tooltip').style.display = 'none';
     });
 });
+
 function calculateTax() {
     // Get input values
     const basicSalary = parseFloat(document.getElementById('basicSalary').value) || 0;
@@ -19,7 +20,6 @@ function calculateTax() {
     // Get allowance percentages
     const oddShiftPercent = parseFloat(document.getElementById('oddShiftAllowances').value) || 0;
     const overtimePercent = parseFloat(document.getElementById('overtimeAllowance').value) || 0;
-    // const transportPercent = parseFloat(document.getElementById('transportAllowance').value) || 0;
     const transportAmount = parseFloat(document.getElementById('transportAllowance').value) || 0;
     const medicalPercent = parseFloat(document.getElementById('medicalAllowance').value) || 0;
     const foodPercent = parseFloat(document.getElementById('foodAllowance').value) || 0;
@@ -28,7 +28,6 @@ function calculateTax() {
     
     // Investment and deduction inputs
     const citInvestment = parseFloat(document.getElementById('citInvestment').value) || 0;
-    const ssfPercent = parseFloat(document.getElementById('ssfContribution').value) || 0;
     const insurancePremium = parseFloat(document.getElementById('insurancePremium').value) || 0;
     const pfPercent = parseFloat(document.getElementById('pfContribution').value) || 0;
     const healthInsurance = parseFloat(document.getElementById('healthInsurance').value) || 0;
@@ -38,7 +37,6 @@ function calculateTax() {
     // Calculate allowances
     const oddShiftAmount = (basicSalary * oddShiftPercent) / 100;
     const overtimeAmount = (basicSalary * overtimePercent) / 100;
-    // const transportAmount = (basicSalary * transportPercent) / 100;
     const medicalAmount = (basicSalary * medicalPercent) / 100;
     const foodAmount = (basicSalary * foodPercent) / 100;
     const housingAmount = (basicSalary * housingPercent) / 100;
@@ -48,69 +46,82 @@ function calculateTax() {
                                 medicalAmount + foodAmount + housingAmount + otherAllowancesAmount;
     const totalAnnualAllowances = totalMonthlyAllowances * 12;
 
-    // Calculate total income (employee perspective)
+    // SSF Calculation - Updated for FY 2080/81
+    // Employee contributes 11% of basic salary (tax deductible)
+    // Employer contributes 20% of basic salary (INCLUDED in gross salary for tax purposes)
+    const ssfEmployeeContributionMonthly = basicSalary * 0.11;
+    const ssfEmployeeContributionAnnual = ssfEmployeeContributionMonthly * 12;
+    const ssfEmployerContributionMonthly = basicSalary * 0.20;
+    const ssfEmployerContributionAnnual = ssfEmployerContributionMonthly * 12;
+
+    // Calculate total gross income (includes employer SSF contribution)
     const annualBasicSalary = basicSalary * 12;
     const bonusAmount = basicSalary * festivalBonus;
-    const totalIncome = annualBasicSalary + bonusAmount + totalAnnualAllowances + otherIncome;
+    const totalGrossIncome = annualBasicSalary + bonusAmount + totalAnnualAllowances + 
+                           ssfEmployerContributionAnnual + otherIncome;
 
-    // SSF Calculation (FY 2081/82 rules)
-    // Employee contributes 11% (tax deductible up to 10% of basic salary)
-    // Employer contributes 20% (NOT part of employee's taxable income)
-    const maxMonthlyBasicForSSF = 100000; // Max basic salary considered for SSF
-    const cappedBasicForSSF = Math.min(basicSalary, maxMonthlyBasicForSSF);
-    const employeeSSFContribution = (cappedBasicForSSF * ssfPercent / 100) * 12;
-    const maxSSFDeduction = Math.min(cappedBasicForSSF * 0.10 * 12, 120000);
-    const ssfDeduction = Math.min(employeeSSFContribution, maxSSFDeduction);
-
-    // Other deductions with limits
-    const maxCitDeduction = Math.min(citInvestment, totalIncome / 3, 500000);
+    // Calculate deductions
+    const maxCitDeduction = Math.min(citInvestment, totalGrossIncome / 3, 500000);
     const insuranceDeduction = Math.min(insurancePremium, 40000);
     const healthDeduction = Math.min(healthInsurance, 20000);
     const educationDeduction = Math.min(educationExpense, 100000);
     const pfDeduction = (annualBasicSalary * pfPercent) / 100;
     
-    // Donation deduction (max 5% of taxable income)
+    // SSF deduction is employee contribution (11%)
+    const ssfDeduction = ssfEmployeeContributionAnnual;
+    const ssfTotalContribution = ssfEmployerContributionAnnual + ssfEmployeeContributionAnnual;
+    
+    // Total deductions before donation
     const deductionsBeforeDonation = maxCitDeduction + ssfDeduction + insuranceDeduction + 
                                     pfDeduction + healthDeduction + educationDeduction;
-    const taxableBeforeDonation = Math.max(0, totalIncome - deductionsBeforeDonation);
+    
+    // Calculate taxable income before donation
+    const taxableBeforeDonation = Math.max(0, totalGrossIncome - deductionsBeforeDonation);
+    
+    // Donation deduction (max 5% of taxable income)
     const donationDeduction = Math.min(donation, taxableBeforeDonation * 0.05);
     
     const totalDeductions = deductionsBeforeDonation + donationDeduction;
 
-    // Calculate taxable income
-    const taxableIncome = Math.max(0, totalIncome - totalDeductions);
+    // Calculate final taxable income
+    const taxableIncome = Math.max(0, totalGrossIncome - totalDeductions);
 
-    // Tax calculation based on Nepal tax slabs 2081/2082
+    // Tax calculation based on FY 2080/81 rules
     let taxLiability = 0;
     const taxFreeLimit = maritalStatus === 'married' ? 600000 : 500000;
 
     if (taxableIncome > taxFreeLimit) {
         const taxableAmount = taxableIncome - taxFreeLimit;
         
-        if (taxableAmount <= 200000) {
-            taxLiability = taxableAmount * 0.1;
+        // Updated tax slabs for FY 2080/81
+        if (taxableAmount <= 100000) {
+            taxLiability = taxableAmount * 0.01; // 1% for first 1 lakh
+        } else if (taxableAmount <= 300000) {
+            taxLiability = 1000 + (taxableAmount - 100000) * 0.10; // 10% for next 2 lakh
         } else if (taxableAmount <= 500000) {
-            taxLiability = 20000 + (taxableAmount - 200000) * 0.2;
+            taxLiability = 1000 + 20000 + (taxableAmount - 300000) * 0.20; // 20% for next 2 lakh
         } else if (taxableAmount <= 2000000) {
-            taxLiability = 20000 + 60000 + (taxableAmount - 500000) * 0.3;
+            taxLiability = 1000 + 20000 + 40000 + (taxableAmount - 500000) * 0.30; // 30% for next 15 lakh
         } else {
-            taxLiability = 20000 + 60000 + 450000 + (taxableAmount - 2000000) * 0.36;
+            taxLiability = 1000 + 20000 + 40000 + 450000 + (taxableAmount - 2000000) * 0.36; // 36% above 20 lakh
         }
     }
 
     // Calculate potential tax without deductions
-    const taxableIncomeWithoutDeductions = totalIncome;
+    const taxableIncomeWithoutDeductions = totalGrossIncome;
     let potentialTax = 0;
     if (taxableIncomeWithoutDeductions > taxFreeLimit) {
         const taxableAmount = taxableIncomeWithoutDeductions - taxFreeLimit;
-        if (taxableAmount <= 200000) {
-            potentialTax = taxableAmount * 0.1;
+        if (taxableAmount <= 100000) {
+            potentialTax = taxableAmount * 0.01;
+        } else if (taxableAmount <= 300000) {
+            potentialTax = 1000 + (taxableAmount - 100000) * 0.10;
         } else if (taxableAmount <= 500000) {
-            potentialTax = 20000 + (taxableAmount - 200000) * 0.2;
+            potentialTax = 1000 + 20000 + (taxableAmount - 300000) * 0.20;
         } else if (taxableAmount <= 2000000) {
-            potentialTax = 20000 + 60000 + (taxableAmount - 500000) * 0.3;
+            potentialTax = 1000 + 20000 + 40000 + (taxableAmount - 500000) * 0.30;
         } else {
-            potentialTax = 20000 + 60000 + 450000 + (taxableAmount - 2000000) * 0.36;
+            potentialTax = 1000 + 20000 + 40000 + 450000 + (taxableAmount - 2000000) * 0.36;
         }
     }
 
@@ -121,15 +132,15 @@ function calculateTax() {
     document.getElementById('bonusAmount').textContent = `NPR ${bonusAmount.toLocaleString()}`;
     document.getElementById('totalAllowances').textContent = `NPR ${totalAnnualAllowances.toLocaleString()}`;
     document.getElementById('otherIncomeAmount').textContent = `NPR ${otherIncome.toLocaleString()}`;
-    document.getElementById('grossIncome').textContent = `NPR ${totalIncome.toLocaleString()}`;
+    document.getElementById('grossIncome').textContent = `NPR ${totalGrossIncome.toLocaleString()}`;
 
     // Update UI
-    document.getElementById('totalIncome').textContent = `NPR ${totalIncome.toLocaleString()}`;
+    document.getElementById('totalIncome').textContent = `NPR ${totalGrossIncome.toLocaleString()}`;
     document.getElementById('taxableIncome').textContent = `NPR ${taxableIncome.toLocaleString()}`;
     document.getElementById('taxLiability').textContent = `NPR ${taxLiability.toLocaleString()}`;
     
     document.getElementById('citDeduction').textContent = `NPR ${maxCitDeduction.toLocaleString()}`;
-    document.getElementById('ssfDeduction').textContent = `NPR ${ssfDeduction.toLocaleString()}`;
+    document.getElementById('ssfContribution').textContent = `NPR ${ssfTotalContribution.toLocaleString()}`;
     document.getElementById('insuranceDeduction').textContent = `NPR ${insuranceDeduction.toLocaleString()}`;
     document.getElementById('pfDeduction').textContent = `NPR ${pfDeduction.toLocaleString()}`;
     document.getElementById('healthDeduction').textContent = `NPR ${healthDeduction.toLocaleString()}`;
@@ -137,12 +148,11 @@ function calculateTax() {
     document.getElementById('donationDeduction').textContent = `NPR ${donationDeduction.toLocaleString()}`;
     document.getElementById('totalDeductions').textContent = `NPR ${totalDeductions.toLocaleString()}`;
 
-    // Calculate metrics
-    const actualSSFContribution = (cappedBasicForSSF * ssfPercent / 100) * 12;
-    const monthlyTakeHome = (totalIncome - taxLiability - (actualSSFContribution + pfDeduction)) / 12;
+    // Calculate monthly take-home pay
+    const monthlyTakeHome = (totalGrossIncome - taxLiability - ssfEmployeeContributionAnnual - (pfDeduction + citInvestment)) / 12;
     const monthlySavings = (maxCitDeduction + insuranceDeduction + healthDeduction + educationDeduction) / 12;
-    const taxEfficiency = totalIncome > 0 ? (taxSaved / totalIncome) * 100 : 0;
-    const savingsRate = totalIncome > 0 ? (totalDeductions / totalIncome) * 100 : 0;
+    const taxEfficiency = totalGrossIncome > 0 ? (taxSaved / totalGrossIncome) * 100 : 0;
+    const savingsRate = totalGrossIncome > 0 ? (totalDeductions / totalGrossIncome) * 100 : 0;
 
     document.getElementById('monthlyTakeHome').textContent = `NPR ${monthlyTakeHome.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
     document.getElementById('monthlySavings').textContent = `NPR ${monthlySavings.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
@@ -155,7 +165,7 @@ function calculateTax() {
     document.getElementById('savingsProgress').style.width = `${Math.min(savingsRate, 100)}%`;
 
     // Generate recommendations
-    generateRecommendations(totalIncome, maxCitDeduction, ssfDeduction, insuranceDeduction, 
+    generateRecommendations(totalGrossIncome, maxCitDeduction, ssfDeduction, insuranceDeduction, 
                             taxLiability, totalAnnualAllowances, healthDeduction, 
                             educationDeduction, donationDeduction);
 
@@ -167,23 +177,13 @@ function calculateTax() {
 
 function generateRecommendations(totalIncome, citDeduction, ssfDeduction, insuranceDeduction, taxLiability, totalAllowances, healthDeduction, educationDeduction, donationDeduction) {
     const recommendations = [];
-    const taxableIncome = totalIncome - (citDeduction + ssfDeduction + insuranceDeduction + healthDeduction + educationDeduction + donationDeduction) + totalAllowances;
+    const taxableIncome = totalIncome - (citDeduction + ssfDeduction + insuranceDeduction + healthDeduction + educationDeduction + donationDeduction);
     
-    // Only suggest investments if user has tax liability AND taxable income > threshold
-    const taxFreeLimit = totalAllowances > 0 ? 600000 : 500000;
+    // Tax-free limit based on marital status
+    const taxFreeLimit = 500000; // Assuming single for recommendations
     const shouldSuggestInvestments = taxLiability > 0 && taxableIncome > taxFreeLimit;
 
-    // SSF Recommendation
-    const maxMonthlyBasicForSSF = 100000;
-    const maxSSFDeduction = Math.min(maxMonthlyBasicForSSF * 0.10 * 12, 120000);
-    if (ssfDeduction < maxSSFDeduction && shouldSuggestInvestments) {
-        const additional = Math.min(maxSSFDeduction - ssfDeduction, taxableIncome - taxFreeLimit);
-        if (additional > 10000) {
-            recommendations.push(`Maximize SSF: Increase contribution by NPR ${Math.round(additional).toLocaleString()} (10% of basic salary up to NPR 1.2L/month)`);
-        }
-    }
-
-    // CIT Recommendation (only if beneficial)
+    // CIT Recommendation
     const maxCitAllowed = Math.min(totalIncome / 3, 500000);
     if (citDeduction < maxCitAllowed && shouldSuggestInvestments) {
         const additional = Math.min(maxCitAllowed - citDeduction, taxableIncome - taxFreeLimit);
@@ -192,7 +192,12 @@ function generateRecommendations(totalIncome, citDeduction, ssfDeduction, insura
         }
     }
     
-    // Other recommendations only if tax liability exists
+    // SSF Recommendation
+    if (shouldSuggestInvestments) {
+        recommendations.push(`SSF Contribution: Employee 11% (NPR ${Math.round(ssfDeduction).toLocaleString()}) + Employer 20% already optimized`);
+    }
+
+    // Other recommendations
     if (shouldSuggestInvestments) {
         if (insuranceDeduction < 40000) {
             const additional = 40000 - insuranceDeduction;
