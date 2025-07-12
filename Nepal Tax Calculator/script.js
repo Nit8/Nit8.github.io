@@ -87,24 +87,23 @@ function calculateTax() {
     const taxableIncome = Math.max(0, totalGrossIncome - totalDeductions);
 
     // Tax calculation based on FY 2080/81 rules
-    let taxLiability = 0;
     const taxFreeLimit = maritalStatus === 'married' ? 600000 : 500000;
-
+    let taxLiability = 0;
     if (taxableIncome > taxFreeLimit) {
-        const taxableAmount = taxableIncome - taxFreeLimit;
-        
-        // Updated tax slabs for FY 2080/81
-        if (taxableAmount <= 100000) {
-            taxLiability = taxableAmount * 0.01; // 1% for first 1 lakh
-        } else if (taxableAmount <= 300000) {
-            taxLiability = 1000 + (taxableAmount - 100000) * 0.10; // 10% for next 2 lakh
-        } else if (taxableAmount <= 500000) {
-            taxLiability = 1000 + 20000 + (taxableAmount - 300000) * 0.20; // 20% for next 2 lakh
-        } else if (taxableAmount <= 2000000) {
-            taxLiability = 1000 + 20000 + 40000 + (taxableAmount - 500000) * 0.30; // 30% for next 15 lakh
+        let remaining = taxableIncome - taxFreeLimit;
+        if (remaining <= 200000) {
+            taxLiability = remaining * 0.10;
+        } else if (remaining <= 500000) {
+            taxLiability = 200000 * 0.10 + (remaining - 200000) * 0.20;
+        } else if (remaining <= 1500000) {
+            taxLiability = 200000 * 0.10 + 300000 * 0.20 + (remaining - 500000) * 0.30;
+        } else if (remaining <= 4500000) {
+            taxLiability = 200000 * 0.10 + 300000 * 0.20 + 1000000 * 0.30 + (remaining - 1500000) * 0.36;
         } else {
-            taxLiability = 1000 + 20000 + 40000 + 450000 + (taxableAmount - 2000000) * 0.36; // 36% above 20 lakh
+            taxLiability = 200000 * 0.10 + 300000 * 0.20 + 1000000 * 0.30 + 3000000 * 0.36 + (remaining - 4500000) * 0.39;
         }
+        // Add 1% on the first slab if NOT SSF or pension income
+        taxLiability += taxFreeLimit * 0.01;
     }
 
     // Calculate potential tax without deductions
@@ -147,9 +146,8 @@ function calculateTax() {
     document.getElementById('educationDeduction').textContent = `NPR ${educationDeduction.toLocaleString()}`;
     document.getElementById('donationDeduction').textContent = `NPR ${donationDeduction.toLocaleString()}`;
     document.getElementById('totalDeductions').textContent = `NPR ${totalDeductions.toLocaleString()}`;
-
-    // Calculate monthly take-home pay
-    const monthlyTakeHome = (totalGrossIncome - taxLiability - ssfEmployeeContributionAnnual - (pfDeduction + citInvestment)) / 12;
+    
+    const monthlyTakeHome = (totalGrossIncome - taxLiability - ssfEmployerContributionAnnual - ssfEmployeeContributionAnnual - (pfDeduction + citInvestment)) / 12;
     const monthlySavings = (maxCitDeduction + insuranceDeduction + healthDeduction + educationDeduction) / 12;
     const taxEfficiency = totalGrossIncome > 0 ? (taxSaved / totalGrossIncome) * 100 : 0;
     const savingsRate = totalGrossIncome > 0 ? (totalDeductions / totalGrossIncome) * 100 : 0;
