@@ -71,6 +71,7 @@ function calculateTax() {
     const ssfDeduction = ssfEmployeeContributionAnnual;
     const ssfTotalContribution = ssfEmployerContributionAnnual + ssfEmployeeContributionAnnual;
     const maxCombinedDeduction = Math.min(citInvestment+ssfTotalContribution+pfDeduction, totalGrossIncome / 3, 500000);
+    const actualCITSSFPFInvested = citInvestment+ssfTotalContribution+pfDeduction;
     
     // Total deductions before donation
     const deductionsBeforeDonation = maxCombinedDeduction + insuranceDeduction + healthDeduction + educationDeduction;
@@ -183,7 +184,8 @@ function calculateTax() {
         healthDeduction,
         educationDeduction,
         donationDeduction,
-        taxableBeforeDonation
+        taxableBeforeDonation,
+        actualCITSSFPFInvested
     );
 
     // Add animation
@@ -202,7 +204,8 @@ function generateRecommendations(
     healthDeduction,
     educationDeduction,
     donationDeduction,
-    taxableBeforeDonation // <-- add this
+    taxableBeforeDonation,
+    actualCITSSFPFInvested
 ) {
     const recommendations = [];
     const taxableIncome = totalIncome - (maxCombinedDeduction + ssfDeduction + insuranceDeduction + healthDeduction + educationDeduction + donationDeduction);
@@ -212,11 +215,17 @@ function generateRecommendations(
     const shouldSuggestInvestments = taxLiability > 0 && taxableIncome > taxFreeLimit;
 
     // CIT Recommendation
-    const maxCitAllowed = Math.min(totalIncome / 3, 500000);
-    if (maxCombinedDeduction < maxCitAllowed && shouldSuggestInvestments) {
-        const additional = Math.min(maxCitAllowed - maxCombinedDeduction, taxableIncome - taxFreeLimit);
+    const maxCombinedContributionAllowed = Math.min(totalIncome / 3, 500000);
+    if (maxCombinedDeduction < maxCombinedContributionAllowed && shouldSuggestInvestments) {
+        const additional = Math.min(maxCombinedContributionAllowed - maxCombinedDeduction, taxableIncome - taxFreeLimit);
         if (additional > 10000) {
-            recommendations.push(`CIT/SSF/PF Optimization: You can invest up to NPR ${Math.round(additional).toLocaleString()} more (combined CIT, SSF, PF) for maximum tax benefit`);
+            recommendations.push(`CIT/PF Optimization: You can invest up to NPR ${Math.round(additional).toLocaleString()} more (combined CIT, PF) for maximum tax benefit`);
+        }
+    }
+    else if (actualCITSSFPFInvested > maxCombinedContributionAllowed && shouldSuggestInvestments) {
+        const moreContrib = Math.min(actualCITSSFPFInvested - maxCombinedContributionAllowed);
+        if (moreContrib > 10000) {
+            recommendations.push(`CIT/PF Optimization: You have invested NPR ${Math.round(moreContrib).toLocaleString()} more (combined CIT, PF) that could give maximum tax benefit`);
         }
     }
     
