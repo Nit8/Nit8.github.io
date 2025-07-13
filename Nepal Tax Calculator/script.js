@@ -173,9 +173,18 @@ function calculateTax() {
     document.getElementById('savingsProgress').style.width = `${Math.min(savingsRate, 100)}%`;
 
     // Generate recommendations
-    generateRecommendations(totalGrossIncome, maxCombinedDeduction, ssfDeduction, insuranceDeduction, 
-                            taxLiability, totalAnnualAllowances, healthDeduction, 
-                            educationDeduction, donationDeduction);
+    generateRecommendations(
+        totalGrossIncome,
+        maxCombinedDeduction,
+        ssfDeduction,
+        insuranceDeduction,
+        taxLiability,
+        totalAnnualAllowances,
+        healthDeduction,
+        educationDeduction,
+        donationDeduction,
+        taxableBeforeDonation
+    );
 
     // Add animation
     document.querySelectorAll('.result-card').forEach(card => {
@@ -183,7 +192,18 @@ function calculateTax() {
     });
 }
 
-function generateRecommendations(totalIncome, maxCombinedDeduction, ssfDeduction, insuranceDeduction, taxLiability, totalAllowances, healthDeduction, educationDeduction, donationDeduction) {
+function generateRecommendations(
+    totalIncome,
+    maxCombinedDeduction,
+    ssfDeduction,
+    insuranceDeduction,
+    taxLiability,
+    totalAllowances,
+    healthDeduction,
+    educationDeduction,
+    donationDeduction,
+    taxableBeforeDonation // <-- add this
+) {
     const recommendations = [];
     const taxableIncome = totalIncome - (maxCombinedDeduction + ssfDeduction + insuranceDeduction + healthDeduction + educationDeduction + donationDeduction);
     
