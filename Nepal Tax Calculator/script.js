@@ -149,20 +149,20 @@ function calculateTax() {
     
     const annualTakeHome = 
         annualBasicSalary
-        + bonusAmount
         + totalAnnualAllowances
         + otherIncome
         - taxLiability
         - ssfEmployeeContributionAnnual
         - pfDeduction
-        - citInvestment; // Only if you want to show cash after CIT
+        - citInvestment;
 
     const monthlyTakeHome = annualTakeHome / 12;
     const monthlySavings = (maxCombinedDeduction + insuranceDeduction + healthDeduction + educationDeduction) / 12;
     const taxEfficiency = totalGrossIncome > 0 ? (taxSaved / totalGrossIncome) * 100 : 0;
     const savingsRate = totalGrossIncome > 0 ? (totalDeductions / totalGrossIncome) * 100 : 0;
 
-    document.getElementById('monthlyTakeHome').textContent = `NPR ${monthlyTakeHome.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
+    document.getElementById('monthlyTakeHome').innerHTML =
+        `NPR ${monthlyTakeHome.toLocaleString('en-IN', {maximumFractionDigits: 0})}<br>+ Festival Bonus: NPR ${bonusAmount.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
     document.getElementById('monthlySavings').textContent = `NPR ${monthlySavings.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
     document.getElementById('taxSaved').textContent = `NPR ${taxSaved.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
     document.getElementById('efficiencyPercent').textContent = `${taxEfficiency.toFixed(1)}%`;
