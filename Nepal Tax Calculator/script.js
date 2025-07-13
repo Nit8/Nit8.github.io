@@ -196,7 +196,7 @@ function generateRecommendations(totalIncome, maxCombinedDeduction, ssfDeduction
     if (maxCombinedDeduction < maxCitAllowed && shouldSuggestInvestments) {
         const additional = Math.min(maxCitAllowed - maxCombinedDeduction, taxableIncome - taxFreeLimit);
         if (additional > 10000) {
-            recommendations.push(`CIT Optimization: Invest NPR ${Math.round(additional).toLocaleString()} more to save taxes`);
+            recommendations.push(`CIT/SSF/PF Optimization: You can invest up to NPR ${Math.round(additional).toLocaleString()} more (combined CIT, SSF, PF) for maximum tax benefit`);
         }
     }
     
@@ -219,9 +219,9 @@ function generateRecommendations(totalIncome, maxCombinedDeduction, ssfDeduction
             const additional = 100000 - educationDeduction;
             recommendations.push(`Education Fund: Invest NPR ${additional.toLocaleString()} more for tax-free growth`);
         }
-        const maxDonation = totalIncome * 0.05;
+        const maxDonation = taxableBeforeDonation * 0.05;
         if (donationDeduction < maxDonation) {
-            recommendations.push(`Charitable Donations: Contribute up to NPR ${Math.round(maxDonation).toLocaleString()} (5% of income) for deduction`);
+            recommendations.push(`Charitable Donations: Contribute up to NPR ${Math.round(maxDonation).toLocaleString()} (5% of taxable income before donation) for deduction`);
         }
     }
     
