@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- 1. ESSENTIAL META TAGS (Add these to your <head>) -->
+    <title>Nepal Tax Calculator 2081-82 | Free Income Tax Calculator | CIT, SSF, PF</title>
+    <meta name="description" content="Calculate your Nepal income tax for fiscal year 2081-82. Free online tax calculator with CIT investment, SSF, PF deductions. Plan your taxes and savings efficiently.">
+    <meta name="keywords" content="Nepal tax calculator, income tax Nepal, fiscal year 2081-82, CIT investment, SSF contribution, PF deduction,
+    income tax calculator, free tax calculator, savings planner, tax optimization, online tax calculator, Nepal income tax, tax deductions, tax planning,
+    tax savings, financial planning, tax rates Nepal, income tax rates, tax calculator Nepal, fiscal year 2081-82, tax calculator 2081-82,
+    income tax calculator Nepal, tax deductions Nepal, CIT investment Nepal, SSF contribution Nepal, PF deduction Nepal,
+    tax optimization Nepal, savings planner Nepal, financial calculator, online financial tools, tax planning tools, tax savings calculator,
+    tax planning Nepal, financial planning Nepal, tax rates 2081-82, income tax rates Nepal, tax calculator 2081-82 Nepal">
+    <meta name="robots" content="index, follow">
+    
+    <!-- 2. OPEN GRAPH META TAGS (For social sharing) -->
+    <meta property="og:title" content="Nepal Tax Calculator 2081-82 | Free Income Tax Calculator">
+    <meta property="og:description" content="Calculate your Nepal income tax for fiscal year 2081-82. Free online tax calculator with CIT investment, SSF, PF deductions.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nit8.github.io/Nepal%20Tax%20Calculator/index.html">
+
+    <!-- GITHUB PAGES SPECIFIC URLS -->
+    <meta property="og:url" content="https://nit8.github.io/Nepal%20Tax%20Calculator/index.html">
+    <meta property="og:title" content="Nepal Tax Calculator 2081-82 | Free Income Tax Calculator">
+    <meta property="og:description" content="Calculate your Nepal income tax for fiscal year 2081-82. Free online tax calculator with CIT investment, SSF, PF deductions.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://nit8.github.io/Nepal%20Tax%20Calculator/images/calculator-preview.jpg">
+    
+    <!-- CANONICAL URL FOR GITHUB PAGES -->
+    <link rel="canonical" href="https://nit8.github.io/Nepal%20Tax%20Calculator/index.html">
+    
+    <!-- 3. STRUCTURED DATA (Critical for search engines) -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Nepal Tax Calculator",
+            "description": "Free online income tax calculator for Nepal fiscal year 2081-82",
+            "url": "https://nit8.github.io/Nepal%20Tax%20Calculator/index.html",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "NPR"
+            },
+            "featureList": [
+                "Income tax calculation",
+                "CIT investment deduction",
+                "SSF contribution calculation",
+                "PF deduction",
+                "Tax optimization recommendations",
+                "Savings planner",
+                "Fiscal year 2081-82 rates",
+                "User-friendly interface",
+            ],
+            "publisher": {
+                "@type": "Organization",
+                "name": "Nepal Tax Calculator",
+                "url": "https://nit8.github.io/Nepal%20Tax%20Calculator/index.html"
+            },
+            "location": {
+                "@type": "Country",
+                "name": "Nepal"
+                }
+        }
+        </script>
+        
+        <!-- 4. FAQ STRUCTURED DATA (Helps with featured snippets) -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "How to calculate income tax in Nepal for fiscal year 2081-82?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Use our Nepal Tax Calculator to input your basic salary, allowances, and deductions like CIT investment, SSF contribution, and PF. The calculator automatically applies the latest tax rates for fiscal year 2081-82."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How much can I invest in CIT for tax deduction?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "You can invest up to NPR 500,000 in CIT or combined SSF, employer contribution, and PF up to 1/3 of your annual income for tax deduction."
+                    }
+                }
+            ]
+        }
+        </script>
+        
+        <link rel="canonical" href="https://yourwebsite.com/nepal-tax-calculator">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-calculator"></i> Nepal Tax Calculator: Fiscal Year 2081-82 </h1>
+            <p>Plan your Taxes & Savings like Never Before</p>
+        </div>
+
+        <div class="main-content">
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-chart-line"></i>
+                    <h2>Income Information</h2>
+                </div>
+                <div class="form-group">
+                    <label for="basicSalary">Basic Monthly Salary (NPR)</label>
+                    <input type="number" id="basicSalary" value="0" placeholder="Enter basic salary">
+                    <span class="info-icon" data-tooltip="Your base salary before any deductions or allowances">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Your base salary before any deductions or allowances</div>
+                    </span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="festivalBonus">Festival Bonus (Months)</label>
+                    <select id="festivalBonus">
+                        <option value="1">1 Month</option>
+                        <option value="2">2 Months</option>
+                        <option value="3">3 Months</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="otherIncome">Other Annual Income (NPR)</label>
+                    <input type="number" id="otherIncome" value="0" placeholder="Rental, business, etc.">
+                    <span class="info-icon" data-tooltip="Income from sources other than your main employment">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Income from sources other than your main employment</div>
+                    </span>
+                </div>
+
+                <div class="section-title">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h2>Monthly Allowances</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="oddShiftAllowances">Odd Shift Allowance (% of basic salary)</label>
+                    <input type="number" id="oddShiftAllowances" value="0" min="0" max="100" step="0.1" placeholder="e.g., 20 for 20%">
+                </div>
+
+                <div class="form-group">
+                    <label for="overtimeAllowance">Overtime Allowance (% of basic salary)</label>
+                    <input type="number" id="overtimeAllowance" value="0" min="0" max="100" step="0.1" placeholder="e.g., 15 for 15%">
+                </div>
+
+                <div class="form-group">
+                    <label for="transportAllowance">Transport Allowance (Amount)</label>
+                    <input type="number" id="transportAllowance" value="0" min="0" step="500" placeholder="e.g., 1000, 2000, etc.">
+                </div>
+
+                <div class="form-group">
+                    <label for="medicalAllowance">Medical Allowance (% of basic salary)</label>
+                    <input type="number" id="medicalAllowance" value="0" min="0" max="100" step="0.1" placeholder="e.g., 5 for 5%">
+                </div>
+
+                <div class="form-group">
+                    <label for="foodAllowance">Food/Meal Allowance (% of basic salary)</label>
+                    <input type="number" id="foodAllowance" value="0" min="0" max="100" step="0.1" placeholder="e.g., 8 for 8%">
+                </div>
+
+                <div class="form-group">
+                    <label for="housingAllowance">Housing Allowance (% of basic salary)</label>
+                    <input type="number" id="housingAllowance" value="0" min="0" max="100" step="0.1" placeholder="e.g., 25 for 25%">
+                </div>
+
+                <div class="form-group">
+                    <label for="otherAllowances">Other Allowances (% of basic salary)</label>
+                    <input type="number" id="otherAllowances" value="0" min="0" max="100" step="0.1" placeholder="Position, risk, etc.">
+                </div>
+
+                <div class="form-group">
+                    <label for="maritalStatus">Marital Status</label>
+                    <select id="maritalStatus">
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                    </select>
+                </div>
+
+                <div class="section-title">
+                    <i class="fas fa-piggy-bank"></i>
+                    <h2>Investment & Deductions</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="citInvestment">CIT Investment (NPR)</label>
+                    <input type="number" id="citInvestment" value="0" placeholder="Citizens Investment Trust">
+                    <span class="info-icon" data-tooltip="Max deduction: NPR 500,000 or 1/3 of taxable income">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Max deduction: NPR 500,000 or 1/3 of taxable income</div>
+                    </span>
+                </div>
+
+                <!-- <div class="form-group">
+                    <label for="ssfContribution">SSF Contribution (%)</label>
+                    <input type="number" id="ssfContribution" value="0" min="0" max="20" step="0.1">
+                    <span class="info-icon" data-tooltip="Social Security Fund contribution (max 20% of basic salary)">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Social Security Fund contribution (max 20% of basic salary)</div>
+                    </span>
+                </div> -->
+
+                <div class="form-group">
+                    <label for="insurancePremium">Life Insurance Premium (NPR)</label>
+                    <input type="number" id="insurancePremium" value="0" placeholder="Annual premium">
+                    <span class="info-icon" data-tooltip="Max deduction: NPR 40,000 per year">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Max deduction: NPR 40,000 per year</div>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="pfContribution">Provident Fund Contribution (%)</label>
+                    <input type="number" id="pfContribution" value="0" min="0" max="15" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label for="healthInsurance">Health Insurance (NPR)</label>
+                    <input type="number" id="healthInsurance" value="0" placeholder="Annual premium">
+                    <span class="info-icon" data-tooltip="Max deduction: NPR 20,000 per year">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Max deduction: NPR 20,000 per year</div>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="educationExpense">Education Expense (NPR)</label>
+                    <input type="number" id="educationExpense" value="0" placeholder="For self/children">
+                    <span class="info-icon" data-tooltip="Max deduction: NPR 100,000 per year">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Max deduction: NPR 100,000 per year</div>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    <label for="donation">Donations (NPR)</label>
+                    <input type="number" id="donation" value="0" placeholder="To approved charities">
+                    <span class="info-icon" data-tooltip="Max deduction: 5% of taxable income">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="tooltip">Max deduction: 5% of taxable income</div>
+                    </span>
+                </div>
+
+                <!-- <button class="btn" onclick="calculateTax()">
+                    <i class="fas fa-calculator"></i> Calculate Tax & Savings
+                </button> -->
+            </div>
+
+            <div class="results-section">
+                <div class="section-title">
+                    <i class="fas fa-chart-pie"></i>
+                    <h2>Tax Calculation Results</h2>
+                </div>
+                
+                <div class="result-card" id="totalIncomeCard">
+                    <h3>Total Annual Income</h3>
+                    <div class="amount" id="totalIncome">NPR 0</div>
+                </div>
+
+                <div class="result-card" id="taxableIncomeCard">
+                    <h3>Taxable Income</h3>
+                    <div class="amount" id="taxableIncome">NPR 0</div>
+                </div>
+
+                <div class="result-card" id="taxLiabilityCard">
+                    <h3>Income Tax Liability</h3>
+                    <div class="amount" id="taxLiability">NPR 0</div>
+                </div>
+
+                <div class="tax-breakdown">
+                    <h3><i class="fas fa-file-invoice-dollar"></i> Income Breakdown</h3>
+                    <div class="breakdown-item">
+                        <span>Basic Salary (Annual)</span>
+                        <span id="basicSalaryAmount">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Festival Bonus</span>
+                        <span id="bonusAmount">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Total Allowances</span>
+                        <span id="totalAllowances">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Other Income</span>
+                        <span id="otherIncomeAmount">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item total">
+                        <span><strong>Gross Annual Income</strong></span>
+                        <span id="grossIncome"><strong>NPR 0</strong></span>
+                    </div>
+                </div>
+
+                <div class="tax-breakdown">
+                    <h3><i class="fas fa-receipt"></i> Deduction Breakdown</h3>
+                    <div class="breakdown-item">
+                        <span>CIT Investment</span>
+                        <span id="citDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>SSF Contribution (Employee + Employer Contribution)</span>
+                        <span id="ssfContribution">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Insurance Premium</span>
+                        <span id="insuranceDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Provident Fund</span>
+                        <span id="pfDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Health Insurance</span>
+                        <span id="healthDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Education Expense</span>
+                        <span id="educationDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Donations</span>
+                        <span id="donationDeduction">NPR 0</span>
+                    </div>
+                    <div class="breakdown-item total">
+                        <span><strong>Total Deductions</strong></span>
+                        <span id="totalDeductions"><strong>NPR 0</strong></span>
+                    </div>
+                </div>
+
+                <div class="recommendation" id="recommendations">
+                    <h3><i class="fas fa-lightbulb"></i> Tax Optimization Recommendations</h3>
+                    <ul id="recommendationList">
+                        <li>Increase CIT investment to maximize deductions</li>
+                        <li>Consider additional life insurance coverage</li>
+                        <li>Maximize SSF contributions for better returns</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="section-title">
+                        <i class="fas fa-chart-bar"></i>
+                        <h2>Tax Efficiency Analysis</h2>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Tax Efficiency</span>
+                            <span id="efficiencyPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="efficiencyProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span>Savings Rate</span>
+                            <span id="savingsPercent">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="savingsProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div style="text-align: center; padding: 20px; background: #f8fafc; border-radius: 10px;">
+                            <h4><i class="fas fa-wallet"></i> Monthly Take-Home</h4>
+                            <div style="font-size: 1.5em; font-weight: bold; color: #059669;" id="monthlyTakeHome">NPR 0</div>
+
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: #f8fafc; border-radius: 10px;">
+                            <h4><i class="fas fa-coins"></i> Monthly Savings</h4>
+                            <div style="font-size: 1.5em; font-weight: bold; color: #3b82f6;" id="monthlySavings">NPR 0</div>
+                        </div>
+                        <div style="text-align: center; padding: 20px; background: #f8fafc; border-radius: 10px;">
+                            <h4><i class="fas fa-hand-holding-usd"></i> Tax Saved</h4>
+                            <div style="font-size: 1.5em; font-weight: bold; color: #dc2626;" id="taxSaved">NPR 0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="section-title">
+                        <i class="fas fa-piggy-bank"></i>
+                        <h2>Tax-Saving Investment Options</h2>
+                    </div>
+                    
+                    <div class="savings-options">
+                        <div class="savings-option">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <h4>CIT/SSF/PF Investment</h4>
+                            <p>Up to NPR 500,000 combined ssf employer contribution, SSF and PF or 1/3 of income</p>
+                        </div>
+                        <div class="savings-option">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Life Insurance</h4>
+                            <p>Up to NPR 40,000 annually</p>
+                        </div>
+                        <div class="savings-option">
+                            <i class="fas fa-user-md"></i>
+                            <h4>Health Insurance</h4>
+                            <p>Up to NPR 20,000 annually</p>
+                        </div>
+                        <div class="savings-option">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h4>Education Fund</h4>
+                            <p>Up to NPR 100,000 annually</p>
+                        </div>
+                        <div class="savings-option">
+                            <i class="fas fa-hands-helping"></i>
+                            <h4>Donations</h4>
+                            <p>Up to 5% of taxable income</p>
+                        </div>
+                        <div class="savings-option">
+                            <i class="fas fa-retweet"></i>
+                            <h4>Retirement Fund</h4>
+                            <p>Up to 10% of basic salary</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="section-title">
+                        <i class="fas fa-info-circle"></i>
+                        <h2>Tax Planning Guide</h2>
+                    </div>
+                    
+                    <div class="tax-saving-grid">
+                        <div class="tax-saving-card">
+                            <h3><i class="fas fa-chart-line"></i> CIT Strategies</h3>
+                            <p>Citizens Investment Trust offers tax-efficient savings with up to NPR 500,000 deduction. Consider long-term CIT bonds for stable returns.</p>
+                        </div>
+                        <div class="tax-saving-card">
+                            <h3><i class="fas fa-heartbeat"></i> Health Insurance</h3>
+                            <p>NPR 20,000 premium deduction available. Consider family coverage for comprehensive protection and tax benefits.</p>
+                        </div>
+                        <div class="tax-saving-card">
+                            <h3><i class="fas fa-graduation-cap"></i> Education Savings</h3>
+                            <p>Up to NPR 100,000 deduction for education expenses. Includes tuition fees for children's education.</p>
+                        </div>
+                        <div class="tax-saving-card">
+                            <h3><i class="fas fa-hand-holding-usd"></i> Retirement Planning</h3>
+                            <p>Retirement funds offer up to 10% deduction on basic salary. Consider starting early for compound growth.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Floating Button -->
+    <button id="openTaxSlab" class="floating-button">🇳🇵 Tax Slab Info</button>
+
+    <!-- Modal Overlay -->
+    <div id="taxSlabModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span id="closeTaxSlab" class="close-btn">&times;</span>
+            <h2>🇳🇵 Nepal Tax Slab for FY 2081/82 (2024/25)</h2>
+
+            <h3>🔹 For Unmarried Individuals</h3>
+            <table>
+                <tr><th>Taxable Income (NPR)</th><th>Tax Rate</th></tr>
+                <tr><td>Up to Rs. 500,000</td><td>1%<sup>*</sup></td></tr>
+                <tr><td>Next Rs. 200,000</td><td>10%</td></tr>
+                <tr><td>Next Rs. 300,000</td><td>20%</td></tr>
+                <tr><td>Next Rs. 1,000,000</td><td>30%</td></tr>
+                <tr><td>Next Rs. 3,000,000</td><td>36%</td></tr>
+                <tr><td>Above Rs. 4.5M</td><td>39%</td></tr>
+            </table>
+
+            <h3>🔹 For Married Individuals</h3>
+            <table>
+                <tr><th>Taxable Income (NPR)</th><th>Tax Rate</th></tr>
+                <tr><td>Up to Rs. 600,000</td><td>1%<sup>*</sup></td></tr>
+                <tr><td>Next Rs. 200,000</td><td>10%</td></tr>
+                <tr><td>Next Rs. 300,000</td><td>20%</td></tr>
+                <tr><td>Next Rs. 1,000,000</td><td>30%</td></tr>
+                <tr><td>Next Rs. 3,000,000</td><td>36%</td></tr>
+                <tr><td>Above Rs. 4.5M</td><td>39%</td></tr>
+            </table>
+
+            <p><strong>🟡 What is the 1% tax?</strong><br>
+            The 1% flat tax on the first slab (Rs. 500,000 or Rs. 600,000) is applied only if you <strong>do not contribute to SSF or a Pension Scheme</strong>.</p>
+
+            <p><strong>✅ If you contribute to SSF:</strong><br>
+            Your first Rs. 500,000 (or Rs. 600,000 if married) is completely <strong>tax-free</strong>.</p>
+
+            <h4>🔁 Summary</h4>
+            <table>
+                <tr><th>Condition</th><th>1% Tax Applies?</th></tr>
+                <tr><td>Not enrolled in SSF or Pension</td><td>✅ Yes</td></tr>
+                <tr><td>Enrolled in SSF or Pension</td><td>❌ No</td></tr>
+            </table>
+
+            <h4>💡 Example</h4>
+            <p>If you are <strong>unmarried</strong> with Rs. 700,000 taxable income:</p>
+            <ul>
+                <li><strong>With SSF:</strong> First 500,000 → 0%, Next 200,000 → 10% = Rs. 20,000</li>
+                <li><strong>Without SSF:</strong> First 500,000 → 1% = Rs. 5,000, Next 200,000 → 10% = Rs. 20,000</li>
+            </ul>
+            <p><strong>Total Tax Without SSF: Rs. 25,000</strong><br>
+            <strong>SSF saves you: Rs. 5,000</strong></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+<footer class="privacy-footer">
+  <div class="container">
+    <p class="privacy-notice">
+      <i class="fas fa-lock" aria-hidden="true"></i> 
+      <strong>Your privacy matters:</strong> All calculations are performed locally in your browser. 
+      The data you entered is <u>never</u> logged, stored, or transmitted. 
+      <span class="emoji" aria-hidden="true">🔒</span>
+    </p>
+    <p class="copyright">
+      &copy; 2025 Nepal Tax Calculator | 
+      <a href="privacy.policy" aria-label="Privacy policy">Privacy Policy</a>
+    </p>
+    <p class="copyright">
+      ⚠️ Disclaimer this calculator provides estimates only. Consult a certified tax professional for official tax advice. Tax laws are subject to change. The developers are not responsible for any financial decisions made based on this calculator's results.
+    </p>
+  </div>
+</footer>
+</html>
