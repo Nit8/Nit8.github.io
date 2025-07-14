@@ -306,3 +306,20 @@ document.addEventListener('DOMContentLoaded', function() {
 document.querySelectorAll('input, select').forEach(input => {
     input.addEventListener('input', calculateTax);
 });
+
+// Modal functionality for tax slab details
+document.getElementById('openTaxSlab').addEventListener('click', function () {
+    document.getElementById('taxSlabModal').style.display = 'block';
+});
+
+document.getElementById('closeTaxSlab').addEventListener('click', function () {
+    document.getElementById('taxSlabModal').style.display = 'none';
+});
+
+// Optional: Close modal when clicking outside content
+window.addEventListener('click', function (event) {
+    const modal = document.getElementById('taxSlabModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
