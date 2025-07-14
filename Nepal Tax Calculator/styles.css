@@ -374,3 +374,42 @@ body {
     align-items: center;
     gap: 10px;
 }
+
+.privacy-footer {
+  /* background: #f8f9fa; */
+  padding: 1.5rem;
+  text-align: center;
+  /* border-top: 1px solid #eaeaea; */
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.privacy-notice {
+  max-width: 800px;
+  margin: 0 auto 1rem;
+  line-height: 1.6;
+}
+
+.privacy-notice i.fas {
+  color: #4CAF50;
+  margin-right: 8px;
+}
+
+.emoji {
+  font-size: 1.1em;
+  vertical-align: middle;
+}
+
+.copyright {
+  color: #777;
+  font-size: 0.85rem;
+}
+
+.copyright a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.copyright a:hover {
+  text-decoration: underline;
+}
