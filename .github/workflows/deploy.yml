@@ -2,8 +2,8 @@ name: 🚀 Deploy Static Site to GitHub Pages
 
 on:
   push:
-    branches: [main]      # Triggers on push to main
-  workflow_dispatch:       # Allows manual trigger
+    branches: [main]      # Trigger on push to main
+  workflow_dispatch:       # Allow manual run
 
 permissions:
   contents: read
@@ -22,9 +22,9 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: 📦 Upload site
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3  
         with:
-          path: "."  # your static files are in the root folder
+          path: "." 
 
       - name: 🚀 Deploy
         uses: actions/deploy-pages@v2
