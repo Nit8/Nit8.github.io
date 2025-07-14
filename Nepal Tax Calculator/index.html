@@ -95,61 +95,6 @@
         
         <link rel="canonical" href="https://yourwebsite.com/nepal-tax-calculator">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <!-- Floating Button -->
-        <button id="openTaxSlab" class="floating-button">🇳🇵 Tax Slab Info</button>
-
-        <!-- Modal Overlay -->
-        <div id="taxSlabModal" class="modal-overlay">
-            <div class="modal-content">
-                <span id="closeTaxSlab" class="close-btn">&times;</span>
-                <h2>🇳🇵 Nepal Tax Slab for FY 2081/82 (2024/25)</h2>
-
-                <h3>🔹 For Unmarried Individuals</h3>
-                <table>
-                    <tr><th>Taxable Income (NPR)</th><th>Tax Rate</th></tr>
-                    <tr><td>Up to Rs. 500,000</td><td>1%<sup>*</sup></td></tr>
-                    <tr><td>Next Rs. 200,000</td><td>10%</td></tr>
-                    <tr><td>Next Rs. 300,000</td><td>20%</td></tr>
-                    <tr><td>Next Rs. 1,000,000</td><td>30%</td></tr>
-                    <tr><td>Next Rs. 3,000,000</td><td>36%</td></tr>
-                    <tr><td>Above Rs. 4.5M</td><td>39%</td></tr>
-                </table>
-
-                <h3>🔹 For Married Individuals</h3>
-                <table>
-                    <tr><th>Taxable Income (NPR)</th><th>Tax Rate</th></tr>
-                    <tr><td>Up to Rs. 600,000</td><td>1%<sup>*</sup></td></tr>
-                    <tr><td>Next Rs. 200,000</td><td>10%</td></tr>
-                    <tr><td>Next Rs. 300,000</td><td>20%</td></tr>
-                    <tr><td>Next Rs. 1,000,000</td><td>30%</td></tr>
-                    <tr><td>Next Rs. 3,000,000</td><td>36%</td></tr>
-                    <tr><td>Above Rs. 4.5M</td><td>39%</td></tr>
-                </table>
-
-                <p><strong>🟡 What is the 1% tax?</strong><br>
-                The 1% flat tax on the first slab (Rs. 500,000 or Rs. 600,000) is applied only if you <strong>do not contribute to SSF or a Pension Scheme</strong>.</p>
-
-                <p><strong>✅ If you contribute to SSF:</strong><br>
-                Your first Rs. 500,000 (or Rs. 600,000 if married) is completely <strong>tax-free</strong>.</p>
-
-                <h4>🔁 Summary</h4>
-                <table>
-                    <tr><th>Condition</th><th>1% Tax Applies?</th></tr>
-                    <tr><td>Not enrolled in SSF or Pension</td><td>✅ Yes</td></tr>
-                    <tr><td>Enrolled in SSF or Pension</td><td>❌ No</td></tr>
-                </table>
-
-                <h4>💡 Example</h4>
-                <p>If you are <strong>unmarried</strong> with Rs. 700,000 taxable income:</p>
-                <ul>
-                    <li><strong>With SSF:</strong> First 500,000 → 0%, Next 200,000 → 10% = Rs. 20,000</li>
-                    <li><strong>Without SSF:</strong> First 500,000 → 1% = Rs. 5,000, Next 200,000 → 10% = Rs. 20,000</li>
-                </ul>
-                <p><strong>Total Tax Without SSF: Rs. 25,000</strong><br>
-                <strong>SSF saves you: Rs. 5,000</strong></p>
-            </div>
-        </div>
-
         <link rel="stylesheet" href="styles.css">
     </head>
 <body>
@@ -514,6 +459,60 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <!-- Floating Button -->
+    <button id="openTaxSlab" class="floating-button">🇳🇵 Tax Slab Info</button>
+
+    <!-- Modal Overlay -->
+    <div id="taxSlabModal" class="modal-overlay">
+        <div class="modal-content">
+            <span id="closeTaxSlab" class="close-btn">&times;</span>
+            <h2>🇳🇵 Nepal Tax Slab for FY 2081/82 (2024/25)</h2>
+
+            <h3>🔹 For Unmarried Individuals</h3>
+            <table>
+                <tr><th>Taxable Income (NPR)</th><th>Tax Rate</th></tr>
+                <tr><td>Up to Rs. 500,000</td><td>1%<sup>*</sup></td></tr>
+                <tr><td>Next Rs. 200,000</td><td>10%</td></tr>
+                <tr><td>Next Rs. 300,000</td><td>20%</td></tr>
+                <tr><td>Next Rs. 1,000,000</td><td>30%</td></tr>
+                <tr><td>Next Rs. 3,000,000</td><td>36%</td></tr>
+                <tr><td>Above Rs. 4.5M</td><td>39%</td></tr>
+            </table>
+
+            <h3>🔹 For Married Individuals</h3>
+            <table>
+                <tr><th>Taxable Income (NPR)</th><th>Tax Rate</th></tr>
+                <tr><td>Up to Rs. 600,000</td><td>1%<sup>*</sup></td></tr>
+                <tr><td>Next Rs. 200,000</td><td>10%</td></tr>
+                <tr><td>Next Rs. 300,000</td><td>20%</td></tr>
+                <tr><td>Next Rs. 1,000,000</td><td>30%</td></tr>
+                <tr><td>Next Rs. 3,000,000</td><td>36%</td></tr>
+                <tr><td>Above Rs. 4.5M</td><td>39%</td></tr>
+            </table>
+
+            <p><strong>🟡 What is the 1% tax?</strong><br>
+            The 1% flat tax on the first slab (Rs. 500,000 or Rs. 600,000) is applied only if you <strong>do not contribute to SSF or a Pension Scheme</strong>.</p>
+
+            <p><strong>✅ If you contribute to SSF:</strong><br>
+            Your first Rs. 500,000 (or Rs. 600,000 if married) is completely <strong>tax-free</strong>.</p>
+
+            <h4>🔁 Summary</h4>
+            <table>
+                <tr><th>Condition</th><th>1% Tax Applies?</th></tr>
+                <tr><td>Not enrolled in SSF or Pension</td><td>✅ Yes</td></tr>
+                <tr><td>Enrolled in SSF or Pension</td><td>❌ No</td></tr>
+            </table>
+
+            <h4>💡 Example</h4>
+            <p>If you are <strong>unmarried</strong> with Rs. 700,000 taxable income:</p>
+            <ul>
+                <li><strong>With SSF:</strong> First 500,000 → 0%, Next 200,000 → 10% = Rs. 20,000</li>
+                <li><strong>Without SSF:</strong> First 500,000 → 1% = Rs. 5,000, Next 200,000 → 10% = Rs. 20,000</li>
+            </ul>
+            <p><strong>Total Tax Without SSF: Rs. 25,000</strong><br>
+            <strong>SSF saves you: Rs. 5,000</strong></p>
         </div>
     </div>
     <script src="script.js"></script>
