@@ -90,6 +90,7 @@ function calculateTax() {
     // Tax calculation based on FY 2080/81 rules
     const taxFreeLimit = maritalStatus === 'married' ? 600000 : 500000;
     let taxLiability = 0;
+    const isSSFOrPensionEnrolled = (ssfDeduction > 0 || pfDeduction > 0);
     if (taxableIncome > taxFreeLimit) {
         let remaining = taxableIncome - taxFreeLimit;
         if (remaining <= 200000) {
@@ -104,7 +105,9 @@ function calculateTax() {
             taxLiability = 200000 * 0.10 + 300000 * 0.20 + 1000000 * 0.30 + 3000000 * 0.36 + (remaining - 4500000) * 0.39;
         }
         // Add 1% on the first slab if NOT SSF or pension income
-        taxLiability += taxFreeLimit * 0.01;
+        if (!isSSFOrPensionEnrolled) {
+            taxLiability += taxFreeLimit * 0.01;
+        }
     }
 
     // Calculate potential tax without deductions
