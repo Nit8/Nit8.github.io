@@ -221,13 +221,13 @@ function generateRecommendations(
     const maxCombinedContributionAllowed = Math.min(totalIncome / 3, 500000);
     if (maxCombinedDeduction < maxCombinedContributionAllowed && shouldSuggestInvestments) {
         const additional = Math.min(maxCombinedContributionAllowed - maxCombinedDeduction, taxableIncome - taxFreeLimit);
-        if (additional > 10000) {
+        if (additional > 0) {
             recommendations.push(`CIT/PF Optimization: You can invest up to NPR ${Math.round(additional).toLocaleString()} more (combined CIT, PF) for maximum tax benefit`);
         }
     }
     else if (actualCITSSFPFInvested > maxCombinedContributionAllowed && shouldSuggestInvestments) {
         const moreContrib = Math.min(actualCITSSFPFInvested - maxCombinedContributionAllowed);
-        if (moreContrib > 10000) {
+        if (moreContrib > 0) {
             recommendations.push(`CIT/PF Optimization: You have invested NPR ${Math.round(moreContrib).toLocaleString()} more (combined CIT, PF) that could give maximum tax benefit`);
         }
     }
