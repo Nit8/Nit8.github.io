@@ -3,7 +3,7 @@
 A comprehensive income tax calculator for Nepal's fiscal year 2081/2082 (2024/2025), featuring tax optimization strategies and savings planning tools.
 
 ## 🌐 Live Demo
-[👉 Access the Live Calculator Here](https://nit8.github.io/Nepal%20Tax%20Calculator/index.html)
+[👉 Access the Live Calculator Here](https://nit8.github.io/nepal-salary-tax-calculator/index.html)
 
 ## ✨ Key Features
 - **Accurate Tax Calculation**: Precisely calculates income tax based on Nepal's FY 2081/82 tax brackets

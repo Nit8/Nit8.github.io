@@ -1,4 +1,4 @@
-// File: Hitachi Cricket Highlights Script
+// File: he-cricket-highlights Script
 // Match data
 const matchData = {
     dominatorsBatting: [
