@@ -49,7 +49,7 @@ This project includes comprehensive SEO features:
 git clone https://github.com/Nit8/Nit8.github.io.git
 
 # Navigate to project directory
-cd Nit8.github.io/Nepal Tax Calculator
+cd Nit8.github.io/nepal-salary-tax-calculator
 ```
 ### Running the Application
 Simply open index.html in your preferred web browser. No server required!
