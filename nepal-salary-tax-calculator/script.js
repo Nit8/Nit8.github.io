@@ -16,15 +16,20 @@ function calculateTax() {
     const festivalBonus = parseFloat(document.getElementById('festivalBonus').value) || 1;
     const otherIncome = parseFloat(document.getElementById('otherIncome').value) || 0;
     const maritalStatus = document.getElementById('maritalStatus').value;
+    const gender = document.querySelector('input[name="gender"]:checked')?.value || '';
     
     // Get allowance percentages
     const oddShiftPercent = parseFloat(document.getElementById('oddShiftAllowances').value) || 0;
     const overtimePercent = parseFloat(document.getElementById('overtimeAllowance').value) || 0;
     const transportAmount = parseFloat(document.getElementById('transportAllowance').value) || 0;
-    const medicalPercent = parseFloat(document.getElementById('medicalAllowance').value) || 0;
-    const foodPercent = parseFloat(document.getElementById('foodAllowance').value) || 0;
-    const housingPercent = parseFloat(document.getElementById('housingAllowance').value) || 0;
-    const otherAllowancesPercent = parseFloat(document.getElementById('otherAllowances').value) || 0;
+    // const medicalPercent = parseFloat(document.getElementById('medicalAllowance').value) || 0;
+    // const foodPercent = parseFloat(document.getElementById('foodAllowance').value) || 0;
+    // const housingPercent = parseFloat(document.getElementById('housingAllowance').value) || 0;
+    // const otherAllowancesPercent = parseFloat(document.getElementById('otherAllowances').value) || 0;
+    const medicalAmount = parseFloat(document.getElementById('medicalAllowance').value) || 0;
+    const foodAmount = parseFloat(document.getElementById('foodAllowance').value) || 0;
+    const housingAmount = parseFloat(document.getElementById('housingAllowance').value) || 0;
+    const otherAllowancesAmount = parseFloat(document.getElementById('otherAllowances').value) || 0;
     
     // Investment and deduction inputs
     const citInvestment = parseFloat(document.getElementById('citInvestment').value) || 0;
@@ -37,10 +42,11 @@ function calculateTax() {
     // Calculate allowances
     const oddShiftAmount = (basicSalary * oddShiftPercent) / 100;
     const overtimeAmount = (basicSalary * overtimePercent) / 100;
-    const medicalAmount = (basicSalary * medicalPercent) / 100;
-    const foodAmount = (basicSalary * foodPercent) / 100;
-    const housingAmount = (basicSalary * housingPercent) / 100;
-    const otherAllowancesAmount = (basicSalary * otherAllowancesPercent) / 100;
+    
+    // const medicalAmount = (basicSalary * medicalPercent) / 100;
+    // const foodAmount = (basicSalary * foodPercent) / 100;
+    // const housingAmount = (basicSalary * housingPercent) / 100;
+    // const otherAllowancesAmount = (basicSalary * otherAllowancesPercent) / 100;
     
     const totalMonthlyAllowances = oddShiftAmount + overtimeAmount + transportAmount + 
                                 medicalAmount + foodAmount + housingAmount + otherAllowancesAmount;
@@ -108,6 +114,9 @@ function calculateTax() {
         if (!isSSFOrPensionEnrolled) {
             taxLiability += taxFreeLimit * 0.01;
         }
+        if (gender == 'female'){
+            taxLiability -= taxLiability * 0.1; // 10% discount
+        }
     }
 
     // Calculate potential tax without deductions
@@ -143,7 +152,7 @@ function calculateTax() {
     document.getElementById('taxLiability').textContent = `NPR ${taxLiability.toLocaleString()}`;
     
     document.getElementById('citDeduction').textContent = `NPR ${citInvestment.toLocaleString()}`;
-    document.getElementById('ssfContribution').textContent = `NPR ${ssfTotalContribution.toLocaleString()}`;
+    // document.getElementById('ssfContribution').textContent = `NPR ${ssfTotalContribution.toLocaleString()}`;
     document.getElementById('insuranceDeduction').textContent = `NPR ${insuranceDeduction.toLocaleString()}`;
     document.getElementById('pfDeduction').textContent = `NPR ${pfDeduction.toLocaleString()}`;
     document.getElementById('healthDeduction').textContent = `NPR ${healthDeduction.toLocaleString()}`;
