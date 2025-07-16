@@ -36,13 +36,13 @@ function calculateTax() {
     const insurancePremium = parseFloat(document.getElementById('insurancePremium').value) || 0;
     const pfPercent = parseFloat(document.getElementById('pfContribution').value) || 0;
     const healthInsurance = parseFloat(document.getElementById('healthInsurance').value) || 0;
-    const educationExpense = parseFloat(document.getElementById('educationExpense').value) || 0;
+    // const educationExpense = parseFloat(document.getElementById('educationExpense').value) || 0;
     const donation = parseFloat(document.getElementById('donation').value) || 0;
 
     // Calculate allowances
     const oddShiftAmount = (basicSalary * oddShiftPercent) / 100;
     const overtimeAmount = (basicSalary * overtimePercent) / 100;
-    
+
     // const medicalAmount = (basicSalary * medicalPercent) / 100;
     // const foodAmount = (basicSalary * foodPercent) / 100;
     // const housingAmount = (basicSalary * housingPercent) / 100;
@@ -70,7 +70,7 @@ function calculateTax() {
     // const maxCombinedDeduction = Math.min(citInvestment, totalGrossIncome / 3, 500000);
     const insuranceDeduction = Math.min(insurancePremium, 40000);
     const healthDeduction = Math.min(healthInsurance, 20000);
-    const educationDeduction = Math.min(educationExpense, 100000);
+    // const educationDeduction = Math.min(educationExpense, 100000);
     const pfDeduction = (annualBasicSalary * pfPercent) / 100;
     
     // SSF deduction is employee contribution (11%)
@@ -80,7 +80,7 @@ function calculateTax() {
     const actualCITSSFPFInvested = citInvestment+ssfTotalContribution+pfDeduction;
     
     // Total deductions before donation
-    const deductionsBeforeDonation = maxCombinedDeduction + insuranceDeduction + healthDeduction + educationDeduction;
+    const deductionsBeforeDonation = maxCombinedDeduction + insuranceDeduction + healthDeduction;
     
     // Calculate taxable income before donation
     const taxableBeforeDonation = Math.max(0, totalGrossIncome - deductionsBeforeDonation);
@@ -156,7 +156,7 @@ function calculateTax() {
     document.getElementById('insuranceDeduction').textContent = `NPR ${insuranceDeduction.toLocaleString()}`;
     document.getElementById('pfDeduction').textContent = `NPR ${pfDeduction.toLocaleString()}`;
     document.getElementById('healthDeduction').textContent = `NPR ${healthDeduction.toLocaleString()}`;
-    document.getElementById('educationDeduction').textContent = `NPR ${educationDeduction.toLocaleString()}`;
+    // document.getElementById('educationDeduction').textContent = `NPR ${educationDeduction.toLocaleString()}`;
     document.getElementById('donationDeduction').textContent = `NPR ${donationDeduction.toLocaleString()}`;
     document.getElementById('totalDeductions').textContent = `NPR ${totalDeductions.toLocaleString()}`;
     
@@ -170,7 +170,7 @@ function calculateTax() {
         - citInvestment;
 
     const monthlyTakeHome = annualTakeHome / 12;
-    const monthlySavings = (maxCombinedDeduction + insuranceDeduction + healthDeduction + educationDeduction) / 12;
+    const monthlySavings = (maxCombinedDeduction + insuranceDeduction + healthDeduction ) / 12;
     const taxEfficiency = totalGrossIncome > 0 ? (taxSaved / totalGrossIncome) * 100 : 0;
     const savingsRate = totalGrossIncome > 0 ? (totalDeductions / totalGrossIncome) * 100 : 0;
 
@@ -194,7 +194,6 @@ function calculateTax() {
         taxLiability,
         totalAnnualAllowances,
         healthDeduction,
-        educationDeduction,
         donationDeduction,
         taxableBeforeDonation,
         actualCITSSFPFInvested
@@ -214,13 +213,12 @@ function generateRecommendations(
     taxLiability,
     totalAllowances,
     healthDeduction,
-    educationDeduction,
     donationDeduction,
     taxableBeforeDonation,
     actualCITSSFPFInvested
 ) {
     const recommendations = [];
-    const taxableIncome = totalIncome - (maxCombinedDeduction + ssfDeduction + insuranceDeduction + healthDeduction + educationDeduction + donationDeduction);
+    const taxableIncome = totalIncome - (maxCombinedDeduction + ssfDeduction + insuranceDeduction + healthDeduction + donationDeduction);
     
     // Tax-free limit based on marital status
     const taxFreeLimit = 500000; // Assuming single for recommendations
@@ -255,10 +253,6 @@ function generateRecommendations(
         if (healthDeduction < 20000) {
             const additional = 20000 - healthDeduction;
             recommendations.push(`Health Insurance: Add coverage for NPR ${additional.toLocaleString()} (Max: 20k/year)`);
-        }
-        if (educationDeduction < 100000) {
-            const additional = 100000 - educationDeduction;
-            recommendations.push(`Education Fund: Invest NPR ${additional.toLocaleString()} more for tax-free growth`);
         }
         const maxDonation = taxableBeforeDonation * 0.05;
         if (donationDeduction < maxDonation) {
