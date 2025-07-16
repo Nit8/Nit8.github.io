@@ -149,7 +149,9 @@ function calculateTax() {
     // Update UI
     document.getElementById('totalIncome').textContent = `NPR ${totalGrossIncome.toLocaleString()}`;
     document.getElementById('taxableIncome').textContent = `NPR ${taxableIncome.toLocaleString()}`;
-    document.getElementById('taxLiability').textContent = `NPR ${taxLiability.toLocaleString()}`;
+    // document.getElementById('taxLiability').textContent = `NPR ${taxLiability.toLocaleString()}`;
+    document.getElementById('taxLiabilityAnnual').textContent = `NPR ${taxLiability.toLocaleString()}`;
+    document.getElementById('taxLiabilityMonthly').textContent = `NPR ${(taxLiability/12).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
     
     document.getElementById('citDeduction').textContent = `NPR ${citInvestment.toLocaleString()}`;
     // document.getElementById('ssfContribution').textContent = `NPR ${ssfTotalContribution.toLocaleString()}`;

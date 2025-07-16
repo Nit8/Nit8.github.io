@@ -381,6 +381,26 @@ body {
     letter-spacing: -0.025em;
 }
 
+.amount-wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-top: var(--spacing-sm);
+}
+
+.amount-line {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.amount-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--gray-500);
+    font-family: var(--font-sans);
+}
+
 /* Tax Breakdown */
 .tax-breakdown {
     background: var(--gray-50);
