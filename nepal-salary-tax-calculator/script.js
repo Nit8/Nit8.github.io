@@ -328,3 +328,20 @@ window.addEventListener('click', function (event) {
         modal.style.display = 'none';
     }
 });
+
+// Getting rid of zeros in input fields when editing
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      input.addEventListener('focus', function () {
+        if (this.value === "0") {
+          this.value = "";
+        }
+      });
+
+      input.addEventListener('blur', function () {
+        if (this.value.trim() === "") {
+          this.value = "0";
+        }
+      });
+    });
+  });
