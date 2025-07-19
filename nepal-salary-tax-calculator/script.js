@@ -32,7 +32,11 @@ function calculateTax() {
     const otherAllowancesAmount = parseFloat(document.getElementById('otherAllowances').value) || 0;
     
     // Investment and deduction inputs
-    const citInvestment = parseFloat(document.getElementById('citInvestment').value) || 0;
+    let citInvestment = parseFloat(document.getElementById('citInvestment').value) || 0;
+    let citType = document.getElementById('citInvestmentType').value;
+    if (citType === 'monthly') {
+        citInvestment *= 12;  // Convert monthly to annual
+    }
     const insurancePremium = parseFloat(document.getElementById('insurancePremium').value) || 0;
     const pfPercent = parseFloat(document.getElementById('pfContribution').value) || 0;
     const healthInsurance = parseFloat(document.getElementById('healthInsurance').value) || 0;

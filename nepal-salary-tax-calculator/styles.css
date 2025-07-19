@@ -231,6 +231,13 @@ body {
     font-style: italic;
 }
 
+.form-group input[type="number"] {
+    flex: 1;
+}
+.form-group select {
+    width: 150px;
+}
+
 /* Info Icons & Tooltips */
 .info-icon {
     position: absolute;

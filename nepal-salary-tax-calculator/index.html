@@ -206,10 +206,16 @@
                 
                 <div class="form-group">
                     <label for="citInvestment">CIT Investment (NPR)</label>
-                    <input type="number" id="citInvestment" value="0" placeholder="Citizens Investment Trust">
-                    <span class="info-icon" data-tooltip="Max deduction: NPR 500,000 or 1/3 of taxable income">
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="number" id="citInvestment" value="0" placeholder="Citizens Investment Trust">
+                        <select id="citInvestmentType">
+                            <option value="annual" selected>Annual</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <span class="info-icon" data-tooltip="Max deduction annual: NPR 500,000 or 1/3 of taxable income">
                         <i class="fas fa-info-circle"></i>
-                        <div class="tooltip">Max deduction: NPR 500,000 or 1/3 of taxable income</div>
+                        <div class="tooltip">Max deduction annual: NPR 500,000 or 1/3 of taxable income</div>
                     </span>
                 </div>
 
