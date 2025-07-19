@@ -10,6 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
+      name: Clean old files
+      run: rm -rf tax-calculator/ || true
+  
       - name: Update timestamp
         run: |
           sed -i "s/<div class=\"version-inline-below\" id=\"lastUpdate\">.*<\/div>/<div class=\"version-inline-below\" id=\"lastUpdate\">Last Updated: $(date -u '+%Y-%m-%d %H:%M %Z')<\/div>/" tax-calculator/index.html
