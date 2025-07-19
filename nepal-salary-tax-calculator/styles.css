@@ -432,6 +432,33 @@ body {
     color: var(--primary-blue);
 }
 
+.breakdown-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.breakdown-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 0.95rem;
+}
+
+.breakdown-item:last-child {
+    border-bottom: none;
+}
+
+.breakdown-item.total {
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 2px solid var(--gray-300);
+    border-bottom: none;
+    font-size: 1.1rem;
+}
+
 .breakdown-table {
     width: 100%;
     border-collapse: collapse;
