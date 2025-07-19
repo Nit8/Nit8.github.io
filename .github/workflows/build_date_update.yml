@@ -12,7 +12,7 @@ jobs:
       
       - name: Update timestamp
         run: |
-          sed -i "s/<div class=\"version-inline-below\" id=\"lastUpdate\">.*<\/div>/<div class=\"version-inline-below\" id=\"lastUpdate\">Last Updated: $(date -u '+%Y-%m-%d %H:%M %Z')<\/div>/" tax-calculator/index.html
+          sed -i "s/<div class=\"version-inline-below\" id=\"lastUpdate\">.*<\/div>/<div class=\"version-inline-below\" id=\"lastUpdate\">Last Updated: $(date -u '+%Y-%m-%d %H:%M %Z')<\/div>/" nepal-salary-tax-calculator/index.html
       
       - name: Commit changes
         run: |
