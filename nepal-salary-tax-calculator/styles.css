@@ -415,6 +415,7 @@ body {
     padding: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
     border: 1px solid var(--gray-200);
+    font-family: var(--font-sans);
 }
 
 .tax-breakdown h3 {
@@ -431,9 +432,15 @@ body {
     color: var(--primary-blue);
 }
 
-.breakdown-item {
+.breakdown-content {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.breakdown-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
     align-items: center;
     padding: var(--spacing-sm) 0;
     border-bottom: 1px solid var(--gray-200);
@@ -452,16 +459,31 @@ body {
     font-size: 1.1rem;
 }
 
-.breakdown-item span:first-child {
+.deduction-label {
     color: var(--gray-700);
-    flex: 1;
+    padding-right: var(--spacing-md);
 }
 
-.breakdown-item span:last-child {
+.deduction-annual,
+.deduction-monthly {
     color: var(--gray-800);
     font-weight: 600;
     font-family: var(--font-mono);
-    margin-left: var(--spacing-md);
+    text-align: right;
+}
+
+.empty-monthly {
+    color: var(--gray-500);
+    font-style: italic;
+    text-align: right;
+}
+
+/* Ensure monospace numbers align perfectly */
+.deduction-annual,
+.deduction-monthly,
+.empty-monthly {
+    padding-left: var(--spacing-md);
+    min-width: 150px; /* Adjust based on your largest number */
 }
 
 /* Recommendations */
@@ -835,6 +857,20 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 768px) {
+    .breakdown-item {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xs);
+    }
+    
+    .deduction-annual,
+    .deduction-monthly,
+    .empty-monthly {
+        text-align: left;
+        padding-left: var(--spacing-lg);
+    }
+}
+
 @media (max-width: 1024px) {
     .main-content {
         grid-template-columns: 1fr;
