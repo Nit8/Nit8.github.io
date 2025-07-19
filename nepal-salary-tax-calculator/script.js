@@ -354,5 +354,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+// Update last modified date/ build date
   document.getElementById('lastUpdate').textContent = 
   'Last Updated: ' + new Date().toISOString().split('T')[0];
