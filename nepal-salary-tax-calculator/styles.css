@@ -149,7 +149,7 @@ body {
 /* Main Content Layout */
 .main-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.28fr;
     gap: var(--spacing-xl);
     margin-bottom: var(--spacing-xl);
 }
