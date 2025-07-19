@@ -1,0 +1,21 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main  # or your branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set build time variable
+        run: echo "BUILD_TIME=$(date -u +"%Y-%m-%d %H:%M UTC")" >> $GITHUB_ENV
+
+      - name: Replace build time in index.html
+        run: |
+          sed -i "s/BUILD_TIME_PLACEHOLDER/$BUILD_TIME/" nepal-salary-tax-calculator/index.html

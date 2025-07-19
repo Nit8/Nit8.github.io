@@ -146,6 +146,19 @@ body {
     box-shadow: var(--shadow-sm);
 }
 
+.version-inline-below {
+    position: absolute;
+    top: calc(var(--spacing-md) + 1.6rem); /* Adjust based on the height of the first one */
+    right: var(--spacing-md);
+    background: var(--accent-green);
+    color: var(--white);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
 /* Main Content Layout */
 .main-content {
     display: grid;
