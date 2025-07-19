@@ -330,37 +330,49 @@
 
                 <div class="tax-breakdown">
                     <h3><i class="fas fa-receipt"></i> Deduction Breakdown</h3>
+                    <div class="breakdown-header breakdown-item">
+                        <span>Deduction Type</span>
+                        <span>Annual (NPR)</span>
+                        <span>Monthly (NPR)</span>
+                    </div>
                     <div class="breakdown-item">
                         <span>CIT Investment</span>
                         <span id="citDeduction">NPR 0</span>
+                        <span id="citDeductionMonthly">NPR 0</span>
                     </div>
                     <div class="breakdown-item">
                         <span>SSF Contribution (Employee + Employer Contribution)</span>
                         <span id="ssfContribution">NPR 0</span>
+                        <span id="ssfContributionMonthly">NPR 0</span>
                     </div>
-                    <div class="breakdown-item">
+                    <div class="breakdown-item no-monthly">
                         <span>Insurance Premium</span>
                         <span id="insuranceDeduction">NPR 0</span>
+                        <span class="empty-monthly">-</span>
                     </div>
                     <div class="breakdown-item">
                         <span>Provident Fund</span>
                         <span id="pfDeduction">NPR 0</span>
+                        <span id="pfDeductionMonthly">NPR 0</span>
                     </div>
-                    <div class="breakdown-item">
+                    <div class="breakdown-item no-monthly">
                         <span>Health Insurance</span>
                         <span id="healthDeduction">NPR 0</span>
+                        <span class="empty-monthly">-</span>
                     </div>
                     <!-- <div class="breakdown-item">
                         <span>Education Expense</span>
                         <span id="educationDeduction">NPR 0</span>
                     </div> -->
-                    <div class="breakdown-item">
+                    <div class="breakdown-item no-monthly">
                         <span>Donations</span>
                         <span id="donationDeduction">NPR 0</span>
+                        <span class="empty-monthly">-</span>
                     </div>
                     <div class="breakdown-item total">
                         <span><strong>Total Deductions</strong></span>
                         <span id="totalDeductions"><strong>NPR 0</strong></span>
+                        <span id="totalDeductionsMonthly"><strong>NPR 0</strong></span>
                     </div>
                 </div>
 

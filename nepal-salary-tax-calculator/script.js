@@ -158,9 +158,12 @@ function calculateTax() {
     document.getElementById('taxLiabilityMonthly').textContent = `NPR ${(taxLiability/12).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
     
     document.getElementById('citDeduction').textContent = `NPR ${citInvestment.toLocaleString()}`;
-    // document.getElementById('ssfContribution').textContent = `NPR ${ssfTotalContribution.toLocaleString()}`;
+    document.getElementById('citDeductionMonthly').textContent = `NPR ${(citInvestment/12).toLocaleString()}`;
+    document.getElementById('ssfContribution').textContent = `NPR ${ssfTotalContribution.toLocaleString()}`;
+    document.getElementById('ssfContributionMonthly').textContent = `NPR ${(ssfTotalContribution/12).toLocaleString()}`;
     document.getElementById('insuranceDeduction').textContent = `NPR ${insuranceDeduction.toLocaleString()}`;
     document.getElementById('pfDeduction').textContent = `NPR ${pfDeduction.toLocaleString()}`;
+    document.getElementById('pfDeductionMonthly').textContent = `NPR ${(pfDeduction/12).toLocaleString()}`;
     document.getElementById('healthDeduction').textContent = `NPR ${healthDeduction.toLocaleString()}`;
     // document.getElementById('educationDeduction').textContent = `NPR ${educationDeduction.toLocaleString()}`;
     document.getElementById('donationDeduction').textContent = `NPR ${donationDeduction.toLocaleString()}`;
