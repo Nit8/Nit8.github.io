@@ -34,7 +34,7 @@
     
     /* Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+    --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace, Consolas, 'Courier New';
     
     /* Spacing */
     --spacing-xs: 0.25rem;
@@ -45,7 +45,7 @@
     --spacing-2xl: 3rem;
     
     /* Border Radius */
-    --radius-sm: 0.375rem;
+    --radius-sm: 0.5rem;
     --radius-md: 0.5rem;
     --radius-lg: 0.75rem;
     --radius-xl: 1rem;
@@ -432,36 +432,47 @@ body {
     color: var(--primary-blue);
 }
 
-.breakdown-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
-}
-
-.breakdown-item {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    align-items: center;
-    padding: var(--spacing-sm) 0;
-    border-bottom: 1px solid var(--gray-200);
+.breakdown-table {
+    width: 100%;
+    border-collapse: collapse;
     font-size: 0.95rem;
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.breakdown-item:last-child {
+.breakdown-table th {
+    background: var(--gray-800);
+    color: white;
+    font-weight: 600;
+    padding: var(--spacing-md);
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.breakdown-table th:nth-child(2),
+.breakdown-table th:nth-child(3) {
+    text-align: right;
+}
+
+.breakdown-table td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: middle;
+}
+
+.breakdown-table tr:last-child td {
     border-bottom: none;
 }
 
-.breakdown-item.total {
-    margin-top: var(--spacing-md);
-    padding-top: var(--spacing-md);
-    border-top: 2px solid var(--gray-300);
-    border-bottom: none;
-    font-size: 1.1rem;
+.breakdown-table tr:hover {
+    background: var(--gray-50);
 }
 
 .deduction-label {
     color: var(--gray-700);
-    padding-right: var(--spacing-md);
+    font-weight: 500;
 }
 
 .deduction-annual,
@@ -478,12 +489,15 @@ body {
     text-align: right;
 }
 
-/* Ensure monospace numbers align perfectly */
-.deduction-annual,
-.deduction-monthly,
-.empty-monthly {
-    padding-left: var(--spacing-md);
-    min-width: 150px; /* Adjust based on your largest number */
+.total-row {
+    background: var(--gray-50) !important;
+    border-top: 2px solid var(--primary-blue);
+}
+
+.total-row td {
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: var(--spacing-lg) var(--spacing-md);
 }
 
 /* Recommendations */
@@ -858,17 +872,58 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .breakdown-item {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-xs);
-    }
-    
-    .deduction-annual,
-    .deduction-monthly,
-    .empty-monthly {
-        text-align: left;
-        padding-left: var(--spacing-lg);
-    }
+.tax-breakdown {
+    padding: var(--spacing-md);
+    margin: 0 var(--spacing-sm) var(--spacing-lg) var(--spacing-sm);
+}
+
+.breakdown-table {
+    font-size: 0.85rem;
+}
+
+.breakdown-table th,
+.breakdown-table td {
+    padding: var(--spacing-sm);
+}
+
+.breakdown-table th {
+    font-size: 0.8rem;
+}
+
+.total-row td {
+    padding: var(--spacing-md) var(--spacing-sm);
+    font-size: 1rem;
+}
+
+.deduction-label {
+    font-size: 0.85rem;
+    line-height: 1.3;
+}
+}
+
+@media (max-width: 480px) {
+.breakdown-table th:nth-child(1) {
+    width: 50%;
+}
+
+.breakdown-table th:nth-child(2),
+.breakdown-table th:nth-child(3) {
+    width: 25%;
+}
+
+.breakdown-table th,
+.breakdown-table td {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+}
+
+.total-row td {
+    font-size: 0.9rem;
+}
+
+.deduction-label {
+    font-size: 0.8rem;
+}
 }
 
 @media (max-width: 1024px) {

@@ -329,49 +329,52 @@
                 </div>
 
                 <h3><i class="fas fa-receipt"></i> Deduction Breakdown</h3>
-                    <div class="breakdown-item total">
-                        <span class="deduction-label"><strong>Deduction Type</strong></span>
-                        <span class="header-annual"><strong>Annual(NPR)</strong></span>
-                        <span class="header-monthly"><strong>Monthly(NPR)</strong></span>
-                    </div>
-                    <div class="breakdown-content">
-                    <div class="breakdown-item">
-                        <span class="deduction-label">CIT Investment</span>
-                        <span class="deduction-annual" id="citDeduction">NPR 0</span>
-                        <span class="deduction-monthly" id="citDeductionMonthly">NPR 0</span>
-                    </div>
-                    <div class="breakdown-item">
-                        <span class="deduction-label">SSF Contribution (Employee + Employer Contribution)</span>
-                        <span class="deduction-annual" id="ssfContribution">NPR 0</span>
-                        <span class="deduction-monthly" id="ssfContributionMonthly">NPR 0</span>
-                    </div>
-                    <div class="breakdown-item no-monthly">
-                        <span class="deduction-label">Insurance Premium</span>
-                        <span class="deduction-annual" id="insuranceDeduction">NPR 0</span>
-                        <span class="empty-monthly">-</span>
-                    </div>
-                    <div class="breakdown-item no-monthly">
-                        <span class="deduction-label">Provident Fund</span>
-                        <span class="deduction-annual" id="pfDeduction">NPR 0</span>
-                        <span class="deduction-monthly" id="pfDeductionMonthly">NPR 0</span>
-                        <span class="empty-monthly">-</span>
-                    </div>
-                    <div class="breakdown-item no-monthly">
-                        <span class="deduction-label">Health Insurance</span>
-                        <span class="deduction-annual" id="healthDeduction">NPR 0</span>
-                        <span class="empty-monthly">-</span>
-                    </div>
-                    <div class="breakdown-item no-monthly">
-                        <span class="deduction-label">Donations</span>
-                        <span class="deduction-annual" id="donationDeduction">NPR 0</span>
-                        <span class="empty-monthly">-</span>
-                    </div>
-                    <div class="breakdown-item total">
-                        <span class="deduction-label"><strong>Total Deductions</strong></span>
-                        <span class="totalDeductions" id="totalDeductions"><strong>NPR 0</strong></span>
-                        <span class="totalDeductionsMonthly" id="totalDeductionsMonthly"><strong>NPR 0</strong></span>
-                    </div>
-                </div>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Deduction Type</th>
+                            <th>Annual (NPR)</th>
+                            <th>Monthly (NPR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="deduction-label">CIT Investment</td>
+                            <td class="deduction-annual" id="citDeduction">NPR 0</td>
+                            <td class="deduction-monthly" id="citDeductionMonthly">NPR 0</td>
+                        </tr>
+                        <tr>
+                            <td class="deduction-label">SSF Contribution (Employee + Employer)</td>
+                            <td class="deduction-annual" id="ssfContribution">NPR 0</td>
+                            <td class="deduction-monthly" id="ssfContributionMonthly">NPR 0</td>
+                        </tr>
+                        <tr>
+                            <td class="deduction-label">Insurance Premium</td>
+                            <td class="deduction-annual" id="insuranceDeduction">NPR 0</td>
+                            <td class="empty-monthly">-</td>
+                        </tr>
+                        <tr>
+                            <td class="deduction-label">Provident Fund</td>
+                            <td class="deduction-annual" id="pfDeduction">NPR 0</td>
+                            <td class="deduction-monthly" id="pfDeductionMonthly">NPR 0</td>
+                        </tr>
+                        <tr>
+                            <td class="deduction-label">Health Insurance</td>
+                            <td class="deduction-annual" id="healthDeduction">NPR 0</td>
+                            <td class="empty-monthly">-</td>
+                        </tr>
+                        <tr>
+                            <td class="deduction-label">Donations</td>
+                            <td class="deduction-annual" id="donationDeduction">NPR 0</td>
+                            <td class="empty-monthly">-</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td class="deduction-label">Total Deductions</td>
+                            <td class="deduction-annual" id="totalDeductions">NPR 0</td>
+                            <td class="deduction-monthly" id="totalDeductionsMonthly">NPR 0</td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <div class="recommendation" id="recommendations">
                     <h3><i class="fas fa-lightbulb"></i> Tax Optimization Recommendations</h3>

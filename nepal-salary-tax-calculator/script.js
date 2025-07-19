@@ -168,6 +168,7 @@ function calculateTax() {
     // document.getElementById('educationDeduction').textContent = `NPR ${educationDeduction.toLocaleString()}`;
     document.getElementById('donationDeduction').textContent = `NPR ${donationDeduction.toLocaleString()}`;
     document.getElementById('totalDeductions').textContent = `NPR ${totalDeductions.toLocaleString()}`;
+    document.getElementById('totalDeductionsMonthly').textContent = `NPR ${(totalDeductions/12).toLocaleString()}`;
     
     const annualTakeHome = 
         annualBasicSalary
