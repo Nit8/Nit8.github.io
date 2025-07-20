@@ -871,6 +871,8 @@ body {
     padding: var(--spacing-xl) 0;
     margin-top: var(--spacing-2xl);
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .privacy-footer .container {
@@ -1340,6 +1342,8 @@ input[value="female"]:checked ~ .radio-custom::after {
     outline: none;
 }
 
+
+/* Floating Table */
 .floating-table {
     font-family: var(--font-mono);
     position: fixed;         
