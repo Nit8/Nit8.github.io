@@ -1044,6 +1044,11 @@ body {
         display: inline-block;
         margin-bottom: var(--spacing-md);
     }
+    .version-inline-below {
+        position: static;
+        display: inline-block;
+        margin-bottom: var(--spacing-md);
+    }
     
     .result-card .amount {
         font-size: 1.5rem;
