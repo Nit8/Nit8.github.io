@@ -156,6 +156,7 @@ function calculateTax() {
     // document.getElementById('taxLiability').textContent = `NPR ${taxLiability.toLocaleString()}`;
     document.getElementById('taxLiabilityAnnual').textContent = `NPR ${taxLiability.toLocaleString()}`;
     document.getElementById('taxLiabilityMonthly').textContent = `NPR ${(taxLiability/12).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+    document.getElementById('taxLiabilityMonthlyFloat').textContent = `NPR ${(taxLiability/12).toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
     
     document.getElementById('citDeduction').textContent = `NPR ${citInvestment.toLocaleString()}`;
     document.getElementById('citDeductionMonthly').textContent = `NPR ${(citInvestment/12).toLocaleString()}`;
@@ -186,6 +187,7 @@ function calculateTax() {
 
     document.getElementById('monthlyTakeHome').innerHTML =
         `NPR ${monthlyTakeHome.toLocaleString('en-IN', {maximumFractionDigits: 0})}<br>+ Festival Bonus: NPR ${bonusAmount.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
+    document.getElementById("monthlyTakeHomeFloat").innerText = monthlyTakeHome.toLocaleString('en-IN', {maximumFractionDigits: 0});
     document.getElementById('monthlySavings').textContent = `NPR ${monthlySavings.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
     document.getElementById('taxSaved').textContent = `NPR ${taxSaved.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
     document.getElementById('efficiencyPercent').textContent = `${taxEfficiency.toFixed(1)}%`;
