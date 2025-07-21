@@ -178,7 +178,9 @@ function calculateTax() {
         - taxLiability
         - ssfEmployeeContributionAnnual
         - pfDeduction
-        - citInvestment;
+        - citInvestment
+        - insuranceDeduction
+        - healthDeduction;
 
     const monthlyTakeHome = annualTakeHome / 12;
     const monthlySavings = (maxCombinedDeduction + insuranceDeduction + healthDeduction ) / 12;
