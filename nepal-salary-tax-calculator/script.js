@@ -361,3 +361,65 @@ document.addEventListener('DOMContentLoaded', function () {
 // Update last modified date/ build date
   document.getElementById('lastUpdate').textContent = 
   'Last Updated: ' + new Date().toISOString().split('T')[0];
+
+
+// make the floating table draggable
+const el = document.getElementById("draggableTable");
+let isDragging = false;
+let startX = 0, startY = 0;
+let offsetX = 0, offsetY = 0;
+
+function setPosition(x, y) {
+el.style.left = x + "px";
+el.style.top = y + "px";
+}
+
+function onMouseDown(e) {
+isDragging = true;
+startX = e.clientX;
+startY = e.clientY;
+offsetX = el.offsetLeft;
+offsetY = el.offsetTop;
+document.addEventListener("mousemove", onMouseMove);
+document.addEventListener("mouseup", onMouseUp);
+}
+
+function onMouseMove(e) {
+if (!isDragging) return;
+const dx = e.clientX - startX;
+const dy = e.clientY - startY;
+setPosition(offsetX + dx, offsetY + dy);
+}
+
+function onMouseUp() {
+isDragging = false;
+document.removeEventListener("mousemove", onMouseMove);
+document.removeEventListener("mouseup", onMouseUp);
+}
+
+function onTouchStart(e) {
+isDragging = true;
+startX = e.touches[0].clientX;
+startY = e.touches[0].clientY;
+offsetX = el.offsetLeft;
+offsetY = el.offsetTop;
+document.addEventListener("touchmove", onTouchMove, { passive: false });
+document.addEventListener("touchend", onTouchEnd);
+}
+
+function onTouchMove(e) {
+if (!isDragging) return;
+e.preventDefault(); // Prevent scrolling
+const dx = e.touches[0].clientX - startX;
+const dy = e.touches[0].clientY - startY;
+setPosition(offsetX + dx, offsetY + dy);
+}
+
+function onTouchEnd() {
+isDragging = false;
+document.removeEventListener("touchmove", onTouchMove);
+document.removeEventListener("touchend", onTouchEnd);
+}
+// Attach event listeners
+el.addEventListener("mousedown", onMouseDown);
+el.addEventListener("touchstart", onTouchStart, { passive: false });

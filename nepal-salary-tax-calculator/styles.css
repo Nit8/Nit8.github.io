@@ -1346,7 +1346,8 @@ input[value="female"]:checked ~ .radio-custom::after {
 /* Floating Table */
 .floating-table {
     font-family: var(--font-mono);
-    position: fixed;         
+    position: fixed;    
+    cursor: grab;     
     top: 25px;
     right: 20px;              
     margin-left: auto;        
