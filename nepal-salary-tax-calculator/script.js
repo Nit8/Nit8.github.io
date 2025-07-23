@@ -20,7 +20,7 @@ function calculateTax() {
     
     // Get allowance percentages
     const oddShiftPercent = parseFloat(document.getElementById('oddShiftAllowances').value) || 0;
-    const overtimePercent = parseFloat(document.getElementById('overtimeAllowance').value) || 0;
+    // const overtimePercent = parseFloat(document.getElementById('overtimeAllowance').value) || 0;
     const transportAmount = parseFloat(document.getElementById('transportAllowance').value) || 0;
     // const medicalPercent = parseFloat(document.getElementById('medicalAllowance').value) || 0;
     // const foodPercent = parseFloat(document.getElementById('foodAllowance').value) || 0;
@@ -45,14 +45,14 @@ function calculateTax() {
 
     // Calculate allowances
     const oddShiftAmount = (basicSalary * oddShiftPercent) / 100;
-    const overtimeAmount = (basicSalary * overtimePercent) / 100;
+    // const overtimeAmount = (basicSalary * overtimePercent) / 100;
 
     // const medicalAmount = (basicSalary * medicalPercent) / 100;
     // const foodAmount = (basicSalary * foodPercent) / 100;
     // const housingAmount = (basicSalary * housingPercent) / 100;
     // const otherAllowancesAmount = (basicSalary * otherAllowancesPercent) / 100;
     
-    const totalMonthlyAllowances = oddShiftAmount + overtimeAmount + transportAmount + 
+    const totalMonthlyAllowances = oddShiftAmount + transportAmount + 
                                 medicalAmount + foodAmount + housingAmount + otherAllowancesAmount;
     const totalAnnualAllowances = totalMonthlyAllowances * 12;
 
@@ -423,3 +423,19 @@ document.removeEventListener("touchend", onTouchEnd);
 // Attach event listeners
 el.addEventListener("mousedown", onMouseDown);
 el.addEventListener("touchstart", onTouchStart, { passive: false });
+
+// Advanced Button Functionality
+const toggleBtn = document.getElementById("toggleAdvancedBtn");
+  const advancedSection = document.getElementById("advancedOptions");
+
+  toggleBtn.addEventListener("click", () => {
+    advancedSection.classList.toggle("open");
+
+    if (advancedSection.classList.contains("open")) {
+      toggleBtn.innerText = "Hide Advanced Options ▲";
+      advancedSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      toggleBtn.innerText = "Show Advanced Options ▼";
+    }
+  });
+  
