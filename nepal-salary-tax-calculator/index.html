@@ -171,8 +171,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="oddShiftAllowances">Odd Shift Allowance (% of basic salary)</label>
-                        <input type="number" id="oddShiftAllowances" value="0" min="0" max="100" step="0.1" placeholder="e.g., 20 for 20%">
+                        <label for="oddShiftAllowances">Odd Shift Allowance</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="number" id="oddShiftAllowances" value="0" min="0" max="100" step="0.1" placeholder="e.g., 20 for 20%">
+                            <select id="oddShiftAllowancesType">
+                                <option value="percent" selected>Percentage</option>
+                                <option value="amount">Amount</option>
+                            </select>
+                        </div>
+                        <span class="info-icon" data-tooltip="oddShiftAllowances">
+                            <i class="fas fa-info-circle"></i>
+                            <div class="tooltip">
+                                The percentage is the percent of monthly basic salary.<br>
+                                Amount means fixed value in NPR per month.
+                            </div>
+                        </span>
                     </div>
 
                     <!-- <div class="form-group">

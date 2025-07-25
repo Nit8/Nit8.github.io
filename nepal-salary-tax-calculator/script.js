@@ -19,7 +19,17 @@ function calculateTax() {
     const gender = document.querySelector('input[name="gender"]:checked')?.value || '';
     
     // Get allowance percentages
-    const oddShiftPercent = parseFloat(document.getElementById('oddShiftAllowances').value) || 0;
+    let oddShiftAmountMontlhy;
+    let oddShiftValue = parseFloat(document.getElementById('oddShiftAllowances').value) || 0;
+    let oddShiftType = document.getElementById('oddShiftAllowancesType').value;
+    if (oddShiftType === 'percent') {
+        oddShiftAmountMontlhy = (basicSalary * oddShiftValue) / 100;
+    }
+    else if (oddShiftType === 'amount') {
+        oddShiftAmountMontlhy =  oddShiftValue;
+    }
+
+    // const oddShiftAmountMontlhy = (basicSalary * oddShiftPercent) / 100;
     // const overtimePercent = parseFloat(document.getElementById('overtimeAllowance').value) || 0;
     const transportAmount = parseFloat(document.getElementById('transportAllowance').value) || 0;
     // const medicalPercent = parseFloat(document.getElementById('medicalAllowance').value) || 0;
@@ -44,7 +54,6 @@ function calculateTax() {
     const donation = parseFloat(document.getElementById('donation').value) || 0;
 
     // Calculate allowances
-    const oddShiftAmount = (basicSalary * oddShiftPercent) / 100;
     // const overtimeAmount = (basicSalary * overtimePercent) / 100;
 
     // const medicalAmount = (basicSalary * medicalPercent) / 100;
@@ -52,7 +61,7 @@ function calculateTax() {
     // const housingAmount = (basicSalary * housingPercent) / 100;
     // const otherAllowancesAmount = (basicSalary * otherAllowancesPercent) / 100;
     
-    const totalMonthlyAllowances = oddShiftAmount + transportAmount + 
+    const totalMonthlyAllowances = oddShiftAmountMontlhy + transportAmount + 
                                 medicalAmount + foodAmount + housingAmount + otherAllowancesAmount;
     const totalAnnualAllowances = totalMonthlyAllowances * 12;
 
