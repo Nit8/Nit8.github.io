@@ -280,7 +280,12 @@ function generateRecommendations(
     
     // SSF Recommendation
     if (shouldSuggestInvestments) {
-        recommendations.push(`SSF Contribution: Employee 11% (NPR ${Math.round(ssfDeduction).toLocaleString()}) + Employer 20% already optimized`);
+        if(ssfDeduction > 0) {
+            recommendations.push(`SSF Contribution: Employee 11% (NPR ${Math.round(ssfDeduction).toLocaleString()}) + Employer 20% already optimized`);
+        }
+        else {
+            recommendations.push(`Consider SSF Contribution for tax benefits`);
+        }
     }
 
     // Other recommendations
