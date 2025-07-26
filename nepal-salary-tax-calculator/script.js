@@ -68,10 +68,26 @@ function calculateTax() {
     // SSF Calculation - Updated for FY 2080/81
     // Employee contributes 11% of basic salary (tax deductible)
     // Employer contributes 20% of basic salary (INCLUDED in gross salary for tax purposes)
-    const ssfEmployeeContributionMonthly = basicSalary * 0.11;
-    const ssfEmployeeContributionAnnual = ssfEmployeeContributionMonthly * 12;
-    const ssfEmployerContributionMonthly = basicSalary * 0.20;
-    const ssfEmployerContributionAnnual = ssfEmployerContributionMonthly * 12;
+
+    let ssfEmployeeContributionMonthly;
+    let ssfEmployeeContributionAnnual;
+    let ssfEmployerContributionMonthly;
+    let ssfEmployerContributionAnnual;
+
+    const isSSF = document.getElementById("ssfCheckbox").checked;
+    if (!isSSF) {
+        ssfEmployeeContributionMonthly = 0;
+        ssfEmployeeContributionAnnual = 0;
+        ssfEmployerContributionMonthly = 0;
+        ssfEmployerContributionAnnual = 0;
+    }
+    else {
+        ssfEmployeeContributionMonthly = basicSalary * 0.11;
+        ssfEmployeeContributionAnnual = ssfEmployeeContributionMonthly * 12;
+        ssfEmployerContributionMonthly = basicSalary * 0.20;
+        ssfEmployerContributionAnnual = ssfEmployerContributionMonthly * 12;
+    }
+    
 
     // Calculate total gross income (includes employer SSF contribution)
     const annualBasicSalary = basicSalary * 12;
@@ -291,7 +307,7 @@ function generateRecommendations(
         recommendations.push("ℹ️ You're below taxable threshold - prioritize liquidity over tax savings");
     }
     if (totalAllowances === 0 && taxableIncome > taxFreeLimit) {
-        recommendations.push("💡 Negotiate tax-free allowances with employer (up to 1/3 basic salary)");
+        recommendations.push(" Negotiate tax-free allowances with employer (up to 1/3 basic salary)");
     }
 
     // Default message if no recommendations
