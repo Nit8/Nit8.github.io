@@ -168,6 +168,84 @@ function calculateTax() {
 
     const taxSaved = potentialTax - taxLiability;
 
+    // --- Net Cost of Life Insurance After Tax Savings ---
+    // Calculate tax liability WITHOUT insurance deduction
+    const insuranceDeductionOld = insuranceDeduction; // Save current value
+
+    // Remove insurance deduction for this calculation
+    const deductionsBeforeDonationWithoutInsurance = (maxCombinedDeduction + healthDeduction);
+    const taxableBeforeDonationWithoutInsurance = Math.max(0, totalGrossIncome - deductionsBeforeDonationWithoutInsurance);
+    const donationDeductionWithoutInsurance = Math.min(donation, taxableBeforeDonationWithoutInsurance * 0.05);
+    const totalDeductionsWithoutInsurance = deductionsBeforeDonationWithoutInsurance + donationDeductionWithoutInsurance;
+    const taxableIncomeWithoutInsurance = Math.max(0, totalGrossIncome - totalDeductionsWithoutInsurance);
+
+    // Calculate tax liability without insurance
+    let taxLiabilityWithoutInsurance = 0;
+    if (taxableIncomeWithoutInsurance > taxFreeLimit) {
+        let remaining = taxableIncomeWithoutInsurance - taxFreeLimit;
+        if (remaining <= 200000) {
+            taxLiabilityWithoutInsurance = remaining * 0.10;
+        } else if (remaining <= 500000) {
+            taxLiabilityWithoutInsurance = 200000 * 0.10 + (remaining - 200000) * 0.20;
+        } else if (remaining <= 1500000) {
+            taxLiabilityWithoutInsurance = 200000 * 0.10 + 300000 * 0.20 + (remaining - 500000) * 0.30;
+        } else if (remaining <= 4500000) {
+            taxLiabilityWithoutInsurance = 200000 * 0.10 + 300000 * 0.20 + 1000000 * 0.30 + (remaining - 1500000) * 0.36;
+        } else {
+            taxLiabilityWithoutInsurance = 200000 * 0.10 + 300000 * 0.20 + 1000000 * 0.30 + 3000000 * 0.36 + (remaining - 4500000) * 0.39;
+        }
+        // Add 1% on the first slab if NOT SSF or pension income
+        if (!isSSFOrPensionEnrolled) {
+            taxLiabilityWithoutInsurance += taxFreeLimit * 0.01;
+        }
+        if (gender == 'female'){
+            taxLiabilityWithoutInsurance -= taxLiabilityWithoutInsurance * 0.1; // 10% discount
+        }
+    }
+
+    // Calculate monthly difference and net cost
+    const monthlyTaxDiff = (taxLiabilityWithoutInsurance - taxLiability) / 12;
+    const annualTaxSavedFromInsurance = monthlyTaxDiff * 12;
+    const netLifeInsuranceCost = insuranceDeduction - annualTaxSavedFromInsurance;
+
+    // --- Net Cost of Health Insurance After Tax Savings ---
+    // Calculate tax liability WITHOUT health insurance deduction
+
+    const deductionsBeforeDonationWithoutHealth = maxCombinedDeduction + insuranceDeduction;
+    const taxableBeforeDonationWithoutHealth = Math.max(0, totalGrossIncome - deductionsBeforeDonationWithoutHealth);
+    const donationDeductionWithoutHealth = Math.min(donation, taxableBeforeDonationWithoutHealth * 0.05);
+    const totalDeductionsWithoutHealth = deductionsBeforeDonationWithoutHealth + donationDeductionWithoutHealth;
+    const taxableIncomeWithoutHealth = Math.max(0, totalGrossIncome - totalDeductionsWithoutHealth);
+
+    // Calculate tax liability without health insurance
+    let taxLiabilityWithoutHealth = 0;
+    if (taxableIncomeWithoutHealth > taxFreeLimit) {
+        let remaining = taxableIncomeWithoutHealth - taxFreeLimit;
+        if (remaining <= 200000) {
+            taxLiabilityWithoutHealth = remaining * 0.10;
+        } else if (remaining <= 500000) {
+            taxLiabilityWithoutHealth = 200000 * 0.10 + (remaining - 200000) * 0.20;
+        } else if (remaining <= 1500000) {
+            taxLiabilityWithoutHealth = 200000 * 0.10 + 300000 * 0.20 + (remaining - 500000) * 0.30;
+        } else if (remaining <= 4500000) {
+            taxLiabilityWithoutHealth = 200000 * 0.10 + 300000 * 0.20 + 1000000 * 0.30 + (remaining - 1500000) * 0.36;
+        } else {
+            taxLiabilityWithoutHealth = 200000 * 0.10 + 300000 * 0.20 + 1000000 * 0.30 + 3000000 * 0.36 + (remaining - 4500000) * 0.39;
+        }
+        // Add 1% on the first slab if NOT SSF or pension income
+        if (!isSSFOrPensionEnrolled) {
+            taxLiabilityWithoutHealth += taxFreeLimit * 0.01;
+        }
+        if (gender == 'female'){
+            taxLiabilityWithoutHealth -= taxLiabilityWithoutHealth * 0.1; // 10% discount
+        }
+    }
+
+    // Calculate monthly difference and net cost for health insurance
+    const monthlyTaxDiffHealth = (taxLiabilityWithoutHealth - taxLiability) / 12;
+    const annualTaxSavedFromHealthInsurance = monthlyTaxDiffHealth * 12;
+    const netHealthInsuranceCost = healthDeduction - annualTaxSavedFromHealthInsurance;
+
     // Update Income Breakdown
     document.getElementById('basicSalaryAmount').textContent = `NPR ${annualBasicSalary.toLocaleString()}`;
     document.getElementById('bonusAmount').textContent = `NPR ${bonusAmount.toLocaleString()}`;
@@ -219,7 +297,12 @@ function calculateTax() {
     document.getElementById('taxSaved').textContent = `NPR ${taxSaved.toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
     document.getElementById('efficiencyPercent').textContent = `${taxEfficiency.toFixed(1)}%`;
     document.getElementById('savingsPercent').textContent = `${savingsRate.toFixed(1)}%`;
-
+    
+    // Update UI for net Insurance and health Cost
+    document.getElementById('netLifeInsuranceCost').textContent =
+        `NPR ${Math.max(0, Math.round(netLifeInsuranceCost)).toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
+    document.getElementById('netHealthInsuranceCost').textContent =
+        `NPR ${Math.max(0, Math.round(netHealthInsuranceCost)).toLocaleString('en-IN', {maximumFractionDigits: 0})}`;
     // Update progress bars
     document.getElementById('efficiencyProgress').style.width = `${Math.min(taxEfficiency, 100)}%`;
     document.getElementById('savingsProgress').style.width = `${Math.min(savingsRate, 100)}%`;
